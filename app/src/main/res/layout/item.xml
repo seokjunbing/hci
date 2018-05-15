@@ -7,6 +7,8 @@
     android:clipToPadding="true"
     android:padding="50dp"
     app:cardUseCompatPadding="true"
+    android:focusable="false"
+    android:clickable="false"
 
     >
 
@@ -63,6 +65,7 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:saveEnabled="false"
+                android:enabled="true"
                 android:text="Standard" />
 
             <RadioButton
@@ -73,6 +76,7 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:saveEnabled="false"
+                android:enabled="true"
                 android:text="Priority" />
         </RadioGroup>
 
