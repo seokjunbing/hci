@@ -21,7 +21,8 @@
         <activity
             android:name=".ChooseBus1Activity"
             android:label="@string/title_activity_choose_bus1"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Payment"></activity>
     </application>
 
 </manifest>

@@ -66,15 +66,26 @@ public class BookingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_booking_1, container, false);
-        v.findViewById(R.id.search_button).setOnClickListener(new HandleClick());
+        v.findViewById(R.id.search_button).setOnClickListener(new HandleSearchClick());
+
+        v.findViewById(R.id.pay_button).setOnClickListener(new HandlePayClick());
 
         return v;
     }
 
-    private class HandleClick implements View.OnClickListener {
+    private class HandleSearchClick implements View.OnClickListener {
         public void onClick(View arg0) {
             Toast.makeText(getActivity(), "pressed search", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), ChooseBus1Activity.class);
+            startActivity(intent);
+
+        }
+    }
+
+    private class HandlePayClick implements View.OnClickListener {
+        public void onClick(View arg0) {
+            Toast.makeText(getActivity(), "pressed pay", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), Payment.class);
             startActivity(intent);
 
         }

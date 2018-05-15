@@ -1,6 +1,5 @@
 package me.junbing.hci;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,35 +45,11 @@ public class ChooseBus1Activity extends AppCompatActivity {
         initializeData();
         initializeAdapter();
 
-//        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            View v;
-//
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                v = view;
-//                v.findViewById(R.id.radioButton1).setClickable(true);
-//                v.findViewById(R.id.radioButton2).setClickable(true);
-//                System.out.println("SET SELECTED");
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                v.findViewById(R.id.radioButton1).setClickable(false);
-//                v.findViewById(R.id.radioButton2).setClickable(false);
-//            }
-//        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
-//                listView.clearChoices();
-
-//                view.setSelected(true);
-
-                mAdapter.notifyDataSetChanged();
-        listView.invalidateViews();
-        listView.refreshDrawableState();
 
                 view.findViewById(R.id.radioButton1).setClickable(true);
                 view.findViewById(R.id.radioButton2).setClickable(true);
