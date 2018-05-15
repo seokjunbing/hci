@@ -2,18 +2,12 @@ package me.junbing.hci;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 // referred https://medium.com/mindorks/custom-array-adapters-made-easy-b6c4930560dd
 
@@ -41,15 +35,18 @@ public class ChooseBus1Activity extends AppCompatActivity {
 //        initializeAdapter();
 
         setContentView(R.layout.activity_choose_bus1);
-        listView = (ListView) findViewById(R.id.rv);
+        listView = (ListView) findViewById(R.id.choose_bus_lv);
         initializeData();
         initializeAdapter();
+
+
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
+//                selectPos = id;
 
                 view.findViewById(R.id.radioButton1).setClickable(true);
                 view.findViewById(R.id.radioButton2).setClickable(true);
@@ -61,8 +58,6 @@ public class ChooseBus1Activity extends AppCompatActivity {
                     if((int)id != i) {
                         View v = listView.getChildAt(i);
                         if(v != null) {
-//                        v.findViewById(R.id.radioButton1).setEnabled(false);
-//                        v.findViewById(R.id.radioButton2).setEnabled(false);
                             v.findViewById(R.id.radioButton1).setClickable(false);
                             v.findViewById(R.id.radioButton2).setClickable(false);
                         }
@@ -71,35 +66,19 @@ public class ChooseBus1Activity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
     }
 
     private void initializeData(){
-        buses = new ArrayList<>();
-        buses.add(new Bus("8AM - 11AM", "Logan Airport", "BOS -> HAN", Boolean.FALSE, Boolean.FALSE));
-        buses.add(new Bus("10AM - 1PM", "Logan Airport", "BOS -> HAN", Boolean.FALSE, Boolean.FALSE));
-        buses.add(new Bus("12PM - 3PM", "Logan Airport", "BOS -> HAN", Boolean.FALSE, Boolean.FALSE));
-        buses.add(new Bus("2PM - 5PM", "Logan Airport", "BOS -> HAN", Boolean.FALSE, Boolean.FALSE));
-        buses.add(new Bus("4PM - 7PM", "Logan Airport", "BOS -> HAN", Boolean.FALSE, Boolean.FALSE));
+        buses = Bus.getBusArrayList("11/30/18", "Logan Airport", "BOS -> HAN");
     }
 
     private void initializeAdapter(){
 //        RVAdapter adapter = new RVAdapter(buses);
 //        rv.setAdapter(adapter);
 
-        mAdapter = new BusAdapter(this, buses);
+        mAdapter = new BusAdapter(this, buses, false);
         listView.setAdapter(mAdapter);
 
     }
-
-    public void MyOnClickListener() {
-        Toast.makeText(this, "yololol", Toast.LENGTH_SHORT).show();
-    }
-
 
 }

@@ -69,6 +69,7 @@ public class BookingFragment extends Fragment {
         v.findViewById(R.id.search_button).setOnClickListener(new HandleSearchClick());
 
         v.findViewById(R.id.pay_button).setOnClickListener(new HandlePayClick());
+        v.findViewById(R.id.trip_summary).setOnClickListener(new HandleSummaryClick());
 
         return v;
     }
@@ -86,6 +87,15 @@ public class BookingFragment extends Fragment {
         public void onClick(View arg0) {
             Toast.makeText(getActivity(), "pressed pay", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), Payment.class);
+            startActivity(intent);
+
+        }
+    }
+
+    private class HandleSummaryClick implements View.OnClickListener {
+        public void onClick(View arg0) {
+            Toast.makeText(getActivity(), "pressed pay", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), TripSummary.class);
             startActivity(intent);
 
         }

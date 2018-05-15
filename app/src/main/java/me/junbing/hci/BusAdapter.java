@@ -22,12 +22,14 @@ import java.util.List;
 
 public class BusAdapter extends ArrayAdapter<Bus> {
     private Context mContext;
-    private List<Bus> BusList = new ArrayList<>();
+    private List<Bus> BusList;
+    private Boolean isSummary;
 
-    public BusAdapter(@NonNull Context context, @LayoutRes ArrayList<Bus> list) {
+    public BusAdapter(@NonNull Context context, @LayoutRes ArrayList<Bus> list, Boolean isSummary) {
         super(context, 0 , list);
         mContext = context;
         BusList = list;
+        this.isSummary = isSummary;
     }
 
     @NonNull
@@ -41,20 +43,41 @@ public class BusAdapter extends ArrayAdapter<Bus> {
         TextView time;
         TextView departure_loc;
         TextView direction;
+        TextView date;
+        TextView summaryPriority;
 
         final RadioGroup rg;
 
         time = (TextView)listItem.findViewById(R.id.time);
         departure_loc = (TextView)listItem.findViewById(R.id.departure_loc);
         direction = (TextView)listItem.findViewById(R.id.direction);
-
+        date = (TextView)listItem.findViewById(R.id.date);
+        summaryPriority = listItem.findViewById(R.id.summary_priority);
         rg = listItem.findViewById(R.id.radioGroup);
+
+        if(isSummary) {
+            rg.setVisibility(View.GONE);
+
+            if(BusList.get(position).priority) {
+                summaryPriority.setText("Priority");
+            }
+            else {
+                summaryPriority.setText("Standard");
+            }
+        }
+        else {
+            summaryPriority.setVisibility(View.GONE);
+
+        }
+
+
 
         final Bus currentBus = BusList.get(position);
 
         time.setText(currentBus.time);
         departure_loc.setText(currentBus.departure_loc);
         direction.setText(currentBus.direction);
+        date.setText(currentBus.date);
 
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -62,13 +85,13 @@ public class BusAdapter extends ArrayAdapter<Bus> {
                 switch (checkedId) {
                     case R.id.radioButton1:
                         currentBus.priority=false;
-                        ((RadioButton)group.getChildAt(0)).setChecked(true);
-                        ((RadioButton)group.getChildAt(1)).setChecked(false);
+//                        ((RadioButton)group.getChildAt(0)).setChecked(true);
+//                        ((RadioButton)group.getChildAt(1)).setChecked(false);
                         break;
                     case R.id.radioButton2:
                         currentBus.priority=true;
-                        ((RadioButton)group.getChildAt(0)).setChecked(false);
-                        ((RadioButton)group.getChildAt(1)).setChecked(true);
+//                        ((RadioButton)group.getChildAt(0)).setChecked(false);
+//                        ((RadioButton)group.getChildAt(1)).setChecked(true);
                         break;
                 }
 

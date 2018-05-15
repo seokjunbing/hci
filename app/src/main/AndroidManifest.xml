@@ -22,7 +22,8 @@
             android:name=".ChooseBus1Activity"
             android:label="@string/title_activity_choose_bus1"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Payment"></activity>
+        <activity android:name=".Payment" />
+        <activity android:name=".TripSummary"></activity>
     </application>
 
 </manifest>

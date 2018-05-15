@@ -19,10 +19,26 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:id="@+id/direction"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="fill_horizontal"
+            android:orientation="horizontal"
+            android:padding="0dp">
+
+            <TextView
+                android:id="@+id/direction"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="right" />
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,18 +47,18 @@
 
             <TextView
                 android:id="@+id/time"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/departure_loc"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:gravity="right" />
 
         </LinearLayout>
 
@@ -66,6 +82,7 @@
                 android:focusable="false"
                 android:saveEnabled="false"
                 android:enabled="true"
+                android:background="@android:color/transparent"
                 android:text="Standard" />
 
             <RadioButton
@@ -77,8 +94,15 @@
                 android:focusable="false"
                 android:saveEnabled="false"
                 android:enabled="true"
+                android:background="@android:color/transparent"
                 android:text="Priority" />
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/summary_priority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
     </LinearLayout>
 
