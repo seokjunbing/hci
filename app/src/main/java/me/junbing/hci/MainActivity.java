@@ -29,7 +29,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener,
         MonthFixturesFragment.OnFragmentInteractionListener,
-        TodaysFixturesFragment.OnFragmentInteractionListener,
+        SelectTripFragment.OnFragmentInteractionListener,
         WeekFixturesFragment.OnFragmentInteractionListener,
         AllFixturesFragment.OnFragmentInteractionListener,
         MyTeamsFixturesFragment.OnFragmentInteractionListener {
@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity
         transaction.replace(R.id.frame_layout, new FixturesTabs());
         transaction.commit();
 
-        departureDatePicker = findViewById(R.id.departure_textedit);
-        returnDatePicker = findViewById(R.id.return_textedit);
+        departureDatePicker = findViewById(R.id.return_textview);
+        returnDatePicker = findViewById(R.id.departure_textview);
         passengerCountTextView = findViewById(R.id.passenger_count_textview);
         Boolean b1, b2, b3;
         b1 = (departureDatePicker == null);
@@ -132,22 +132,22 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // Allows users to select a date by tapping on the calendar
-    public void datePickerOnClick(final View v) {
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                ((TextView) v).setText(String.format("%d/%d/%d", month, day, year));
-            }
-        }, year, month, day);
-        datePickerDialog.show();
-    }
+//    // Allows users to select a date by tapping on the calendar
+//    public void datePickerOnClick(final View v) {
+//        final Calendar c = Calendar.getInstance();
+//        int year = c.get(Calendar.YEAR);
+//        int month = c.get(Calendar.MONTH);
+//        int day = c.get(Calendar.DAY_OF_MONTH);
+//
+//        DatePickerDialog datePickerDialog = new DatePickerDialog(
+//                this, new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+//                ((TextView) v).setText(String.format("%d/%d/%d", month, day, year));
+//            }
+//        }, year, month, day);
+//        datePickerDialog.show();
+//    }
 
 //    public void passengerPickOnClick(View v) {
 ////        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

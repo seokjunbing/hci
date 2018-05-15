@@ -1,5 +1,6 @@
 package me.junbing.hci;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,15 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -23,12 +22,12 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TodaysFixturesFragment.OnFragmentInteractionListener} interface
+ * {@link SelectTripFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TodaysFixturesFragment#newInstance} factory method to
+ * Use the {@link SelectTripFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TodaysFixturesFragment extends Fragment implements View.OnClickListener {
+public class SelectTripFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
@@ -45,7 +44,9 @@ public class TodaysFixturesFragment extends Fragment implements View.OnClickList
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static String debugTag = "TRIP_SELECT";
+
     TextView passengerSelectTextView;
+    TextView departureDateTextView, returnDateTextView;
     int getPassengersCode = 1;
     SharedPreferences sp;
 
@@ -55,7 +56,7 @@ public class TodaysFixturesFragment extends Fragment implements View.OnClickList
 
     private OnFragmentInteractionListener mListener;
 
-    public TodaysFixturesFragment() {
+    public SelectTripFragment() {
         // Required empty public constructor
     }
 
@@ -65,11 +66,11 @@ public class TodaysFixturesFragment extends Fragment implements View.OnClickList
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TodaysFixturesFragment.
+     * @return A new instance of fragment SelectTripFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TodaysFixturesFragment newInstance(String param1, String param2) {
-        TodaysFixturesFragment fragment = new TodaysFixturesFragment();
+    public static SelectTripFragment newInstance(String param1, String param2) {
+        SelectTripFragment fragment = new SelectTripFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -92,6 +93,11 @@ public class TodaysFixturesFragment extends Fragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         passengerSelectTextView = view.findViewById(R.id.passenger_count_textview);
         passengerSelectTextView.setOnClickListener(this);
+
+        departureDateTextView = view.findViewById(R.id.departure_textview);
+        departureDateTextView.setOnClickListener(this);
+        returnDateTextView = view.findViewById(R.id.return_textview);
+        returnDateTextView.setOnClickListener(this);
     }
 
     @Override
@@ -108,7 +114,35 @@ public class TodaysFixturesFragment extends Fragment implements View.OnClickList
             case R.id.passenger_count_textview:
                 passengerSelectOnClick(v);
                 break;
+            case R.id.departure_textview:
+                datePickerOnClick(v);
+                break;
+            case R.id.return_textview:
+                datePickerOnClick(v);
+                break;
         }
+    }
+
+    // Allows users to select a trip date by tapping on a calendar
+    public void datePickerOnClick(final View v) {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getContext(), new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                ((TextView) v).setText(String.format("%d/%d/%d", month, day, year));
+            }
+        }, year, month, day);
+        // earliest trip date -> today
+        datePickerDialog.getDatePicker().setMinDate(c.getTime().getTime());
+        // latest trip date -> soon
+        // TODO
+        datePickerDialog.show();
     }
 
     // START OF COPYPASTE

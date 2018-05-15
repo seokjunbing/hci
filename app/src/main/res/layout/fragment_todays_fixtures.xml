@@ -5,7 +5,7 @@
     android:id="@+id/frafrafra"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TodaysFixturesFragment">
+    tools:context=".SelectTripFragment">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -91,12 +91,11 @@
                         android:text="@string/depart_date_text" />
 
                     <TextView
-                        android:id="@+id/return_textedit"
+                        android:id="@+id/departure_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:width="100dp"
                         android:background="@drawable/rectangle_background"
-                        android:onClick="datePickerOnClick"
                         android:padding="@dimen/default_padding" />
                 </LinearLayout>
 
@@ -115,13 +114,12 @@
                         android:text="@string/return_date_text" />
 
                     <TextView
-                        android:id="@+id/departure_textedit"
+                        android:id="@+id/return_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:width="100dp"
                         android:background="@drawable/rectangle_background"
                         android:fadingEdge="none"
-                        android:onClick="datePickerOnClick"
                         android:padding="@dimen/default_padding" />
                 </LinearLayout>
             </android.support.constraint.ConstraintLayout>

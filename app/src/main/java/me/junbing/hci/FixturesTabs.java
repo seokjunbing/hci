@@ -38,7 +38,7 @@ public class FixturesTabs extends Fragment {
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getChildFragmentManager());
-        adapter.addFragment(new TodaysFixturesFragment(), "Round trip");
+        adapter.addFragment(new SelectTripFragment(), "Round trip");
         adapter.addFragment(new WeekFixturesFragment(), "One way");
         viewPager.setAdapter(adapter);
     }
