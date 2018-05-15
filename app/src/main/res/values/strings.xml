@@ -1,9 +1,22 @@
 <resources>
     <string name="app_name">HCI</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_booking">Booking</string>
+    <string name="title_my_trips">My trips</string>
+    <string name="title_tracking">Tracking</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="bus_stops">
+        <item>Hanover</item>
+        <item>Lebanon</item>
+        <item>New London</item>
+        <item>Logan Airport</item>
+        <item>South Station</item>
+        <item>New York City</item>
+    </string-array>
+    <!-- Trip selection form strings -->
+    <string name="from_drop_down_text">From</string>
+    <string name="to_drop_down_text">To</string>
+    <string name="depart_date_text">Depart</string>
+    <string name="return_date_text">Return</string>
 </resources>
