@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
-public class Main2Activity extends AppCompatActivity {
+public class PickPassengersActivity extends AppCompatActivity {
     NumberPickerXML adultPicker, childrenPicker, infantPicker;
     int numAdults, numChildren, numInfants;
 
@@ -18,7 +18,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_pick_passengers);
         adultPicker = findViewById(R.id.adult_numpicker);
         childrenPicker = findViewById(R.id.children_numpicker);
         infantPicker = findViewById(R.id.infant_numpicker);
@@ -48,7 +48,7 @@ public class Main2Activity extends AppCompatActivity {
     public void OkOnClick(View v) {
         String vars = "adults, kids, infants: "
                 + numAdults + ", " + numChildren + ", " + numInfants;
-        Toast.makeText(getApplicationContext(), vars.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), vars, Toast.LENGTH_LONG).show();
 
         Intent data = new Intent();
         data.putExtra(adultStr, numAdults);

@@ -102,10 +102,8 @@ public class ChooseBus1Activity extends AppCompatActivity {
                     intent = new Intent(ChooseBus1Activity.this, TripSummary.class);
                 }
 
-                int c = extras.getInt(SelectTripFragment.childCountStr);
-                int a = extras.getInt(SelectTripFragment.adultCountStr);
-                int i = extras.getInt(SelectTripFragment.infantCountStr);
-                Log.d("LOL", String.format("%d, %d, %d", a, c, i));
+                String bsr = extras.getString(SelectTripFragment.busStopReturnStr);
+                Log.d("LOL", bsr);
 
                 intent.putExtra("from", extras.getString("from"));
                 intent.putExtra("to", extras.getString("to"));
