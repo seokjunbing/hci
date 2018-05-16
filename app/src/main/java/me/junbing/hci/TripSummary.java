@@ -47,7 +47,17 @@ public class TripSummary extends AppCompatActivity {
             buses.add(Bus.getSelectBus(departureDate, busStopDepart, fromLoc,toLoc,
                     busChoiceInitial, busChoiceInitialPriority));
 
+            int priority_premium = 0;
+
+            if(busChoiceInitialPriority) {
+                priority_premium += 10;
+            }
+
+            int base_ticket_price = 90;
+            int tax = 10;
+
             if(isRoundTrip) {
+
                 String returnDate = extras.getString("return_date");
                 int busChoiceReturn = extras.getInt("bus_choice_return");
                 Boolean busChoiceReturnPriority = extras.getBoolean("bus_choice_return_priority");
@@ -56,6 +66,11 @@ public class TripSummary extends AppCompatActivity {
 
                 buses.add(Bus.getSelectBus(returnDate, busStopReturn, toLoc, fromLoc,
                         busChoiceReturn, busChoiceReturnPriority));
+
+                if(busChoiceReturnPriority) {
+                    priority_premium += 10;
+                }
+                base_ticket_price += 50;
             }
 
             int total_persons = 0;
@@ -63,10 +78,10 @@ public class TripSummary extends AppCompatActivity {
                     + extras.getInt("children_count")
                     + extras.getInt("infant_count");
 
-            ((TextView)findViewById(R.id.price_pp_val)).setText("$90");
-            ((TextView)findViewById(R.id.TF_pp_val)).setText("$10");
-            ((TextView)findViewById(R.id.total_pp_val)).setText("$100");
-            ((TextView)findViewById(R.id.total_price_val)).setText("$" + Integer.toString(100 * total_persons));
+            ((TextView)findViewById(R.id.price_pp_val)).setText("$" + Integer.toString(base_ticket_price + priority_premium));
+            ((TextView)findViewById(R.id.TF_pp_val)).setText("$" + Integer.toString(tax));
+            ((TextView)findViewById(R.id.total_pp_val)).setText("$" + Integer.toString(base_ticket_price + priority_premium + tax));
+            ((TextView)findViewById(R.id.total_price_val)).setText("$" + Integer.toString((base_ticket_price + priority_premium + tax) * total_persons));
 
             if (total_persons == 1) {
                 ((TextView)findViewById(R.id.total_price)).setText("TOTAL (1 PASSENGER)");
