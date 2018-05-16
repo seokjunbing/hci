@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -62,6 +65,19 @@ public class ChooseBus1Activity extends AppCompatActivity {
         });
 
         findViewById(R.id.select_bus).setOnClickListener(new HandleSearchClick());
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            int way = extras.getInt("way");
+
+            if(way == 10) {
+                ((TextView)findViewById(R.id.out_or_in)).setText("Choose your outbound trip");
+            }
+            else {
+                ((TextView)findViewById(R.id.out_or_in)).setText("Choose your return trip");
+            }
+
+        }
     }
 
     private class  HandleSearchClick implements View.OnClickListener {
@@ -103,6 +119,8 @@ public class ChooseBus1Activity extends AppCompatActivity {
                     intent.putExtra("bus_choice_initial_priority", priority);
                     intent.putExtra("bus_choice_initial", (int)selectPos);
 
+
+
                     System.out.println("bus_choice_initial: " + Integer.toString((int)selectPos));
                 }
                 // return trip
@@ -113,6 +131,8 @@ public class ChooseBus1Activity extends AppCompatActivity {
 
                     intent.putExtra("bus_choice_return_priority", priority);
                     intent.putExtra("bus_choice_return", (int)selectPos);
+
+
 
                     System.out.println("bus_choice_return: " + Integer.toString((int)selectPos));
                 }

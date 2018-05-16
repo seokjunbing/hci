@@ -5,6 +5,12 @@
     android:orientation="vertical"
     >
 
+    <TextView
+        android:id="@+id/out_or_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose ____" />
+
     <ListView
         android:id="@+id/choose_bus_lv"
         android:layout_width="match_parent"
