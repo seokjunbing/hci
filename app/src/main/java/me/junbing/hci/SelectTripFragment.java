@@ -14,12 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -37,24 +39,32 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // Extras to be put in the intent
-    public static final String fromLoc = "from";
-    public static final String toLoc = "to";
-    public static final String busStopDeparture = "bus_stop_depart";
-    public static final String busStopReturn = "bus_stop_return";
-    public static final String departureDate = "departure_date";
-    public static final String returnDate = "return_date";
-    public static final String adultCount = "adult_count";
-    public static final String childrenCount = "children_count";
-    public static final String infantCount = "infant_count";
-    public static final String isRoundTrip = "is_round_trip";
+    public static final String fromLocStr = "from";
+    public static final String toLocStr = "to";
+    public static final String busStopDepartureStr = "bus_stop_depart";
+    public static final String busStopReturnStr = "bus_stop_return";
+    public static final String departureDateStr = "departure_date";
+    public static final String returnDateStr = "return_date";
+    public static final String adultCountStr = "adult_count";
+    public static final String childCountStr = "children_count";
+    public static final String infantCountStr = "infant_count";
+    public static final String isRoundTripStr = "is_round_trip";
+    public static final String wayStr = "wayStr";
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static String debugTag = "TRIP_SELECT";
 
+
+    private int adultCount;
+    private int childCount;
+    private int infantCount;
+
+
     // Interface elements
     private TextView passengerSelectTextView;
     private TextView departureDateTextView, returnDateTextView;
+    private Button searchButton;
 //    private Spinner fromSpinner, toSpinner;
 
     public int getPassengersCode = 1;
@@ -116,6 +126,9 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
         Spinner toSpinner = view.findViewById(R.id.to_spinner);
         toSpinner.setOnItemSelectedListener(this);
         fromSpinner.setOnItemSelectedListener(this);
+
+        searchButton = view.findViewById(R.id.trip_search_button);
+        searchButton.setOnClickListener(this);
     }
 
     @Override
@@ -137,7 +150,35 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
             case R.id.return_textview:
                 pickDateDialog(v, departureDateCalendar);
                 break;
+            case R.id.trip_search_button:
+                searchForTrips();
+                break;
         }
+    }
+
+    private void searchForTrips() {
+        String departureDateStr = new SimpleDateFormat(
+                "MM/dd/yyyy", Locale.getDefault()).format(departureDateCalendar.getTime());
+        String returnDateStr = new SimpleDateFormat(
+                "MM/dd/yyyy", Locale.getDefault()).format(returnDateCalendar.getTime());
+
+
+        // TODO hook the class here
+//        Intent intent = new Intent(getContext(), ChooseBus1Activity.class);
+        Intent intent = new Intent(getContext(), Main2Activity.class);
+        intent.putExtra(fromLocStr, fromStr);
+        intent.putExtra(toLocStr, toStr);
+        intent.putExtra(busStopDepartureStr, fromBusStop);
+        intent.putExtra(wayStr, 10);
+
+        intent.putExtra(busStopReturnStr, busStopReturnStr);
+        intent.putExtra(SelectTripFragment.departureDateStr, departureDateStr);
+        intent.putExtra(SelectTripFragment.returnDateStr, returnDateStr);
+        intent.putExtra(adultCountStr, adultCount);
+        intent.putExtra(childCountStr, childCount);
+        intent.putExtra(infantCountStr, infantCount);
+        intent.putExtra(isRoundTripStr, true);
+        startActivity(intent);
     }
 
     // Allows users to select a trip date by tapping on a calendar
@@ -194,24 +235,18 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
             case R.id.from_spinner:
-                Log.d(debugTag, "I'm here");
                 String fromLocation = (String) parent.getItemAtPosition(position);
                 fromStr = busStopToCity(fromLocation);
                 fromBusStop = busStopToStation(fromLocation);
-                Toast.makeText(getContext(), fromStr + ", " + fromBusStop, Toast.LENGTH_SHORT).show();
-//                Log.d(debugTag, fromStr + ", " + fromBusStop);
+                Log.d(debugTag, fromStr + ", " + fromBusStop);
                 break;
             case R.id.to_spinner:
-                System.out.println("YOYOYOYOYOYOYO");
-                Log.d(debugTag, "I'm here");
                 String toLocation = (String) parent.getItemAtPosition(position);
                 toStr = busStopToCity(toLocation);
                 toBusStop = busStopToStation(toLocation);
-                Toast.makeText(getContext(), toStr + ", " + toBusStop, Toast.LENGTH_SHORT).show();
-//                Log.d(debugTag, toStr + ", " + toBusStop);
+                Log.d(debugTag, toStr + ", " + toBusStop);
                 break;
             default:
-                System.out.println("NONENONENONE");
         }
     }
 
@@ -268,9 +303,9 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (getPassengersCode == requestCode) {
             if (resultCode == RESULT_OK) {
-                int adultCount = data.getIntExtra(Main2Activity.adultStr, 1);
-                int childCount = data.getIntExtra(Main2Activity.childStr, 0);
-                int infantCount = data.getIntExtra(Main2Activity.infantStr, 0);
+                adultCount = data.getIntExtra(Main2Activity.adultStr, 1);
+                childCount = data.getIntExtra(Main2Activity.childStr, 0);
+                infantCount = data.getIntExtra(Main2Activity.infantStr, 0);
                 passengerSelectTextView.setText(
                         String.format("%s, %s, %s",
                                 formatPassengerCount("adult", adultCount),

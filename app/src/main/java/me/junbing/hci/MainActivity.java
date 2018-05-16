@@ -169,16 +169,16 @@ public class MainActivity extends AppCompatActivity
 
             Log.d("yo", adultCount != null ? "Num picker" : "Still null");
             getActivity().getPreferences(MODE_PRIVATE).edit().putInt("adults", 0).commit();
-//            configureNumberPicker(adultCount, 0, 6);
-//            configureNumberPicker(childrenCount, 0, 3);
-//            configureNumberPicker(infantCount, 0, 3);
+//            configureNumberPicker(adultCountStr, 0, 6);
+//            configureNumberPicker(childCountStr, 0, 3);
+//            configureNumberPicker(infantCountStr, 0, 3);
 //
-//            if (adultCount != null) {
-//                adultCount.setMinValue(1);
-//                adultCount.setMaxValue(6);
-//                Log.d("yo", "Max: " + adultCount.getMaxValue() + ". Min: " + adultCount.getMinValue());
-//                adultCount.setOnValueChangedListener(onValueChangeListener);
-//                adultCount.setWrapSelectorWheel(true);
+//            if (adultCountStr != null) {
+//                adultCountStr.setMinValue(1);
+//                adultCountStr.setMaxValue(6);
+//                Log.d("yo", "Max: " + adultCountStr.getMaxValue() + ". Min: " + adultCountStr.getMinValue());
+//                adultCountStr.setOnValueChangedListener(onValueChangeListener);
+//                adultCountStr.setWrapSelectorWheel(true);
 //                Log.d("yo", "worked?");
 //            } else {
 //                Log.d("yo", "did not work lol");
