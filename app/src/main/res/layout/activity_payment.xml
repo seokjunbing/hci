@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
+    android:layout_margin="16dp"
     android:orientation="vertical"
     tools:context=".Payment">
 
@@ -127,17 +128,15 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="vertical">
+        android:layout_height="150dp" />
 
-        <Button
-            android:id="@+id/purchase"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:text="Purchase" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/purchase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Purchase" />
 
 </LinearLayout>

@@ -51,7 +51,7 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="137dp" />
+        android:layout_height="135dp" />
 
     <TextView
         android:id="@+id/textView8"
