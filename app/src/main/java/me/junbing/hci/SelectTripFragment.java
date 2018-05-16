@@ -49,7 +49,7 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     public static final String childCountStr = "children_count";
     public static final String infantCountStr = "infant_count";
     public static final String isRoundTripStr = "is_round_trip";
-    public static final String wayStr = "wayStr";
+    public static final String wayStr = "way";
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -164,8 +164,7 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
 
 
         // TODO hook the class here
-//        Intent intent = new Intent(getContext(), ChooseBus1Activity.class);
-        Intent intent = new Intent(getContext(), Main2Activity.class);
+        Intent intent = new Intent(getContext(), ChooseBus1Activity.class);
         intent.putExtra(fromLocStr, fromStr);
         intent.putExtra(toLocStr, toStr);
         intent.putExtra(busStopDepartureStr, fromBusStop);
