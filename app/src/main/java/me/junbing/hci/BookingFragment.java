@@ -69,7 +69,12 @@ public class BookingFragment extends Fragment {
         v.findViewById(R.id.search_button).setOnClickListener(new HandleSearchClick());
 
         v.findViewById(R.id.pay_button).setOnClickListener(new HandlePayClick());
+
         v.findViewById(R.id.trip_summary).setOnClickListener(new HandleSummaryClick());
+
+        v.findViewById(R.id.oneway_search).setOnClickListener(new HandleOneWayClick());
+
+        v.findViewById(R.id.twoway_search).setOnClickListener(new HandleTwoWayClick());
 
         return v;
     }
@@ -96,6 +101,53 @@ public class BookingFragment extends Fragment {
         public void onClick(View arg0) {
             Toast.makeText(getActivity(), "pressed pay", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), TripSummary.class);
+            startActivity(intent);
+
+        }
+    }
+
+    private class HandleOneWayClick implements View.OnClickListener {
+        public void onClick(View arg0) {
+            Toast.makeText(getActivity(), "pressed oneway", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), ChooseBus1Activity.class);
+
+
+
+            intent.putExtra("from", "New York");
+            intent.putExtra("to", "Hanover");
+            intent.putExtra("departure_date", "06/31/18");
+//            intent.putExtra("return_date", "07/25/18");
+            intent.putExtra("adult_count", 2);
+            intent.putExtra("children_count", 2);
+            intent.putExtra("infant_count", 0);
+            intent.putExtra("is_round_trip", false);
+            intent.putExtra("way", 10);
+            intent.putExtra("bus_stop_depart", "42nd St");
+//            intent.putExtra("bus_stop_return", "Hopkins Center");
+
+            startActivity(intent);
+
+        }
+    }
+
+    private class HandleTwoWayClick implements View.OnClickListener {
+        public void onClick(View arg0) {
+            Toast.makeText(getActivity(), "pressed twoway", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), ChooseBus1Activity.class);
+
+
+            intent.putExtra("from", "New York");
+            intent.putExtra("to", "Hanover");
+            intent.putExtra("departure_date", "06/31/18");
+            intent.putExtra("return_date", "07/25/18");
+            intent.putExtra("adult_count", 2);
+            intent.putExtra("children_count", 2);
+            intent.putExtra("infant_count", 1);
+            intent.putExtra("is_round_trip", true);
+            intent.putExtra("way", 10);
+            intent.putExtra("bus_stop_depart", "42nd St");
+            intent.putExtra("bus_stop_return", "Hopkins Center");
+
             startActivity(intent);
 
         }

@@ -15,7 +15,7 @@
     </ListView>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/select_bus"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="1"

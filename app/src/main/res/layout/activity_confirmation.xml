@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/confirmation_greeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You are going to ____!" />
+
+    <TextView
+        android:id="@+id/outbound_trip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Outbound trip" />
+
+    <ListView
+        android:id="@+id/confirmation_outbound_lv"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+    </ListView>
+
+    <TextView
+        android:id="@+id/return_trip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Return trip" />
+
+    <ListView
+        android:id="@+id/confirmation_return_lv"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+    </ListView>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find boarding passes in your upcoming trips" />
+
+    <Button
+        android:id="@+id/upcoming_trips"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:text="Upcoming trips" />
+
+
+</LinearLayout>

@@ -24,28 +24,30 @@ public class Bus {
         this.selected = selected;
     }
 
-    static ArrayList<Bus> getBusArrayList(String date, String departure_loc, String direction) {
+    private static String getDirectionStr(String directionFrom, String directionTo) {
+        return directionFrom.concat(" -> ").concat(directionTo);
+    }
+
+    static ArrayList<Bus> getBusArrayList(String date, String departure_loc, String directionFrom, String directionTo) {
         ArrayList<Bus> buses = new ArrayList<>();
 
         for(String t: times) {
-            buses.add(new Bus(date, t, departure_loc, direction, Boolean.FALSE, Boolean.FALSE));
+            buses.add(new Bus(date, t, departure_loc, getDirectionStr(directionFrom, directionTo), Boolean.FALSE, Boolean.FALSE));
         }
-
-//        buses.add(new Bus(date, "8AM - 11AM", departure_loc, direction, Boolean.FALSE, Boolean.FALSE));
-//        buses.add(new Bus(date, "10AM - 1PM", departure_loc, direction, Boolean.FALSE, Boolean.FALSE));
-//        buses.add(new Bus(date, "12PM - 3PM", departure_loc, direction, Boolean.FALSE, Boolean.FALSE));
-//        buses.add(new Bus(date, "2PM - 5PM", departure_loc, direction, Boolean.FALSE, Boolean.FALSE));
-//        buses.add(new Bus(date, "4PM - 7PM", departure_loc, direction, Boolean.FALSE, Boolean.FALSE));
         return buses;
     }
 
-    static ArrayList<Bus> getSelectBusArrayList(String date, String departure_loc, String direction, int[] choices, Boolean[] priorities) {
+    static ArrayList<Bus> getSelectBusArrayList(String date, String departure_loc, String directionFrom, String directionTo, int[] busChoices, Boolean[] priorities) {
         ArrayList<Bus> buses = new ArrayList<>();
 
-        for(int ind = 0; ind < choices.length; ind++) {
-            buses.add(new Bus(date, times[ind], departure_loc, direction, priorities[ind], Boolean.FALSE));
+        for(int ind = 0; ind < busChoices.length; ind++) {
+            buses.add(new Bus(date, times[ind], departure_loc, getDirectionStr(directionFrom, directionTo), priorities[ind], Boolean.FALSE));
         }
         return buses;
+    }
+
+    static Bus getSelectBus(String date, String departure_loc, String directionFrom, String directionTo, int busChoice, Boolean priority) {
+        return new Bus(date, times[busChoice], departure_loc, getDirectionStr(directionFrom, directionTo), priority, Boolean.FALSE);
     }
 
 }

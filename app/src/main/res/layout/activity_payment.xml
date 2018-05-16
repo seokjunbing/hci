@@ -134,7 +134,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/purchase"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:text="Purchase" />
