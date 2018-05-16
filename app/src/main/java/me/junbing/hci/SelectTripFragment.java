@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
@@ -51,21 +52,20 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     public static final String isRoundTripStr = "is_round_trip";
     public static final String wayStr = "way";
 
+    public static final String dateFormat = "MM/dd/yyyy";
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static String debugTag = "TRIP_SELECT";
 
-
-    private int adultCount;
-    private int childCount;
-    private int infantCount;
-
+    private int adultCount = 1;
+    private int childCount = 0;
+    private int infantCount = 0;
 
     // Interface elements
     private TextView passengerSelectTextView;
     private TextView departureDateTextView, returnDateTextView;
     private Button searchButton;
-//    private Spinner fromSpinner, toSpinner;
 
     public int getPassengersCode = 1;
     SharedPreferences sp;
@@ -124,6 +124,7 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
 
         Spinner fromSpinner = view.findViewById(R.id.from_spinner);
         Spinner toSpinner = view.findViewById(R.id.to_spinner);
+        toSpinner.setSelection(3); // 3 -> Boston Logan
         toSpinner.setOnItemSelectedListener(this);
         fromSpinner.setOnItemSelectedListener(this);
 
@@ -158,12 +159,10 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
 
     private void searchForTrips() {
         String departureDateStr = new SimpleDateFormat(
-                "MM/dd/yyyy", Locale.getDefault()).format(departureDateCalendar.getTime());
+                dateFormat, Locale.getDefault()).format(departureDateCalendar.getTime());
         String returnDateStr = new SimpleDateFormat(
-                "MM/dd/yyyy", Locale.getDefault()).format(returnDateCalendar.getTime());
+                dateFormat, Locale.getDefault()).format(returnDateCalendar.getTime());
 
-
-        // TODO hook the class here
         Intent intent = new Intent(getContext(), ChooseBus1Activity.class);
         intent.putExtra(fromLocStr, fromStr);
         intent.putExtra(toLocStr, toStr);
@@ -192,14 +191,17 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                ((TextView) v).setText(String.format("%d/%d/%d", month, day, year));
-                // USE THIS CALENDAR TO SET THE MIN DATE FOR THE OTHER ONE
+                // Update the text shown to the user and save the dates
+                Calendar chosenDateCalendar = Calendar.getInstance();
+                chosenDateCalendar.set(year, month, day);
+                ((TextView) v).setText(new SimpleDateFormat(
+                        dateFormat, Locale.getDefault()).format(chosenDateCalendar.getTime()
+                ));
+
                 if (v.getId() == R.id.departure_textview) {
-                    departureDateCalendar = Calendar.getInstance();
-                    departureDateCalendar.set(year, month, day);
+                    departureDateCalendar = chosenDateCalendar;
                 } else if (v.getId() == R.id.return_textview) {
-                    returnDateCalendar = Calendar.getInstance();
-                    returnDateCalendar.set(year, month, day);
+                    returnDateCalendar = chosenDateCalendar;
                 }
             }
         }, year, month, day);
