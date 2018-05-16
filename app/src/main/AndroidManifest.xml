@@ -19,6 +19,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main2Activity"></activity>
+        <activity
+            android:name=".ChooseBus1Activity"
+            android:label="@string/title_activity_choose_bus1"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Payment" />
+        <activity android:name=".TripSummary" />
+        <activity android:name=".Confirmation"></activity>
     </application>
 
 </manifest>

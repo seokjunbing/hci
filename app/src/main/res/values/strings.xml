@@ -19,4 +19,6 @@
     <string name="to_drop_down_text">To</string>
     <string name="depart_date_text">Depart</string>
     <string name="return_date_text">Return</string>
+    <string name="title_activity_choose_bus1">ChooseBus1Activity</string>
+    <string name="action_settings">Settings</string>
 </resources>
