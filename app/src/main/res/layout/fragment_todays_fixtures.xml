@@ -40,6 +40,7 @@
                         android:text="@string/from_drop_down_text" />
 
                     <Spinner
+                        android:id="@+id/from_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:entries="@array/bus_stops"
@@ -61,6 +62,7 @@
                         android:text="@string/to_drop_down_text" />
 
                     <Spinner
+                        android:id="@+id/to_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:entries="@array/bus_stops"

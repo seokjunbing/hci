@@ -8,11 +8,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -27,13 +32,15 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link SelectTripFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SelectTripFragment extends Fragment implements View.OnClickListener {
+public class SelectTripFragment extends Fragment implements View.OnClickListener, OnItemSelectedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // Extras to be put in the intent
     public static final String fromLoc = "from";
     public static final String toLoc = "to";
+    public static final String busStopDeparture = "bus_stop_depart";
+    public static final String busStopReturn = "bus_stop_return";
     public static final String departureDate = "departure_date";
     public static final String returnDate = "return_date";
     public static final String adultCount = "adult_count";
@@ -45,11 +52,17 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     private static final String ARG_PARAM2 = "param2";
     public static String debugTag = "TRIP_SELECT";
 
-    TextView passengerSelectTextView;
-    TextView departureDateTextView, returnDateTextView;
-    int getPassengersCode = 1;
+    // Interface elements
+    private TextView passengerSelectTextView;
+    private TextView departureDateTextView, returnDateTextView;
+//    private Spinner fromSpinner, toSpinner;
+
+    public int getPassengersCode = 1;
     SharedPreferences sp;
 
+    private String fromStr, toStr, fromBusStop, toBusStop;
+    // used to force users to select trips returning after their start date
+    private Calendar departureDateCalendar, returnDateCalendar;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -98,6 +111,11 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
         departureDateTextView.setOnClickListener(this);
         returnDateTextView = view.findViewById(R.id.return_textview);
         returnDateTextView.setOnClickListener(this);
+
+        Spinner fromSpinner = view.findViewById(R.id.from_spinner);
+        Spinner toSpinner = view.findViewById(R.id.to_spinner);
+        toSpinner.setOnItemSelectedListener(this);
+        fromSpinner.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -107,7 +125,6 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
         return inflater.inflate(R.layout.fragment_todays_fixtures, container, false);
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -115,20 +132,20 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
                 passengerSelectOnClick(v);
                 break;
             case R.id.departure_textview:
-                datePickerOnClick(v);
+                pickDateDialog(v, Calendar.getInstance());
                 break;
             case R.id.return_textview:
-                datePickerOnClick(v);
+                pickDateDialog(v, departureDateCalendar);
                 break;
         }
     }
 
     // Allows users to select a trip date by tapping on a calendar
-    public void datePickerOnClick(final View v) {
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+    public void pickDateDialog(final View v, Calendar minDate) {
+        final Calendar calendarToday = Calendar.getInstance();
+        int year = calendarToday.get(Calendar.YEAR);
+        int month = calendarToday.get(Calendar.MONTH);
+        int day = calendarToday.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 getContext(), new DatePickerDialog.OnDateSetListener() {
@@ -136,13 +153,109 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 ((TextView) v).setText(String.format("%d/%d/%d", month, day, year));
+                // USE THIS CALENDAR TO SET THE MIN DATE FOR THE OTHER ONE
+                if (v.getId() == R.id.departure_textview) {
+                    departureDateCalendar = Calendar.getInstance();
+                    departureDateCalendar.set(year, month, day);
+                } else if (v.getId() == R.id.return_textview) {
+                    returnDateCalendar = Calendar.getInstance();
+                    returnDateCalendar.set(year, month, day);
+                }
             }
         }, year, month, day);
-        // earliest trip date -> today
-        datePickerDialog.getDatePicker().setMinDate(c.getTime().getTime());
-        // latest trip date -> soon
-        // TODO
+        // earliest trip date -> today, regardless of whether this is the departure or return calendar
+        datePickerDialog.getDatePicker().setMinDate(minDate.getTimeInMillis());
+        // earliest trip for return trip is after the departure trip
+        if (v.getId() == R.id.return_textview && departureDateCalendar != null) {
+            datePickerDialog.getDatePicker().setMinDate(minDate.getTimeInMillis());
+        }
+
+        // Set the currently selected date in the calendar (if user selected it previously)
+        if (v.getId() == R.id.departure_textview && departureDateCalendar != null) {
+            datePickerDialog.updateDate(
+                    departureDateCalendar.get(Calendar.YEAR),
+                    departureDateCalendar.get(Calendar.MONTH),
+                    departureDateCalendar.get(Calendar.DAY_OF_MONTH)
+            );
+        }
+
+        if (v.getId() == R.id.return_textview && returnDateCalendar != null) {
+            datePickerDialog.updateDate(
+                    returnDateCalendar.get(Calendar.YEAR),
+                    returnDateCalendar.get(Calendar.MONTH),
+                    returnDateCalendar.get(Calendar.DAY_OF_MONTH)
+            );
+        }
+
         datePickerDialog.show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()) {
+            case R.id.from_spinner:
+                Log.d(debugTag, "I'm here");
+                String fromLocation = (String) parent.getItemAtPosition(position);
+                fromStr = busStopToCity(fromLocation);
+                fromBusStop = busStopToStation(fromLocation);
+                Toast.makeText(getContext(), fromStr + ", " + fromBusStop, Toast.LENGTH_SHORT).show();
+//                Log.d(debugTag, fromStr + ", " + fromBusStop);
+                break;
+            case R.id.to_spinner:
+                System.out.println("YOYOYOYOYOYOYO");
+                Log.d(debugTag, "I'm here");
+                String toLocation = (String) parent.getItemAtPosition(position);
+                toStr = busStopToCity(toLocation);
+                toBusStop = busStopToStation(toLocation);
+                Toast.makeText(getContext(), toStr + ", " + toBusStop, Toast.LENGTH_SHORT).show();
+//                Log.d(debugTag, toStr + ", " + toBusStop);
+                break;
+            default:
+                System.out.println("NONENONENONE");
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        Log.d(debugTag, "Nothing selected");
+    }
+
+    private String busStopToCity(String busStop) {
+        switch (busStop.toLowerCase()) {
+            case "hanover":
+                return "HANOVER";
+            case "lebanon":
+                return "LEBANON";
+            case "new london":
+                return "NEW LONDON";
+            case "logan airport":
+                return "BOSTON";
+            case "south station":
+                return "BOSTON";
+            case "new york city":
+                return "NEW YORK";
+            default:
+                return null;
+        }
+    }
+
+    private String busStopToStation(String busStop) {
+        switch (busStop.toLowerCase()) {
+            case "hanover":
+                return "Hopkins Center";
+            case "lebanon":
+                return "Lebanon Transportation Center";
+            case "new london":
+                return "NH Park & Ride (Exit 12, I-89)";
+            case "logan airport":
+                return "Terminals A, B1, B2, C, E";
+            case "south station":
+                return "700 Atlantic Ave";
+            case "new york city":
+                return "150 East 42nd Street";
+            default:
+                return null;
+        }
     }
 
     // START OF COPYPASTE
