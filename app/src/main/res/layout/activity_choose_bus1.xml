@@ -9,12 +9,15 @@
         android:id="@+id/out_or_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose ____" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="2dp"
+        android:text="Choose ____"
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/choose_bus_lv"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="485dp"
         android:choiceMode="singleChoice"
         android:listSelector="@android:color/darker_gray">
 
@@ -23,7 +26,7 @@
     <Button
         android:id="@+id/select_bus"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Select" />
 

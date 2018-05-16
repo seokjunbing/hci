@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,14 +19,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main2Activity"></activity>
+        <activity android:name=".Main2Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ChooseBus1Activity"
-            android:label="@string/title_activity_choose_bus1"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Payment" />
-        <activity android:name=".TripSummary" />
-        <activity android:name=".Confirmation"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".Payment"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".TripSummary"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Confirmation"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -95,7 +95,8 @@
                 android:saveEnabled="false"
                 android:enabled="true"
                 android:background="@android:color/transparent"
-                android:text="Standard" />
+                android:textColor="@android:color/tab_indicator_text"
+                android:text="Standard Boarding" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
@@ -107,13 +108,15 @@
                 android:saveEnabled="false"
                 android:enabled="true"
                 android:background="@android:color/transparent"
-                android:text="Priority" />
+                android:textColor="@android:color/tab_indicator_text"
+                android:text="Priority Boarding" />
         </RadioGroup>
 
         <TextView
             android:id="@+id/summary_priority"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="TextView" />
 
     </LinearLayout>
