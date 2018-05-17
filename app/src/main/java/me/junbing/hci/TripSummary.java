@@ -32,7 +32,7 @@ public class TripSummary extends AppCompatActivity {
     }
 
 
-    private void initializeData(){
+    private void initializeData() {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String fromLoc = extras.getString("from");
@@ -44,10 +44,10 @@ public class TripSummary extends AppCompatActivity {
             String busStopDepart = extras.getString("bus_stop_depart");
 
 
-            buses.add(Bus.getSelectBus(departureDate, busStopDepart, fromLoc,toLoc,
+            buses.add(Bus.getSelectBus(departureDate, busStopDepart, fromLoc, toLoc,
                     busChoiceInitial, busChoiceInitialPriority));
 
-            if(isRoundTrip) {
+            if (isRoundTrip) {
                 String returnDate = extras.getString("return_date");
                 int busChoiceReturn = extras.getInt("bus_choice_return");
                 Boolean busChoiceReturnPriority = extras.getBoolean("bus_choice_return_priority");
@@ -63,16 +63,15 @@ public class TripSummary extends AppCompatActivity {
                     + extras.getInt("children_count")
                     + extras.getInt("infant_count");
 
-            ((TextView)findViewById(R.id.price_pp_val)).setText("$90");
-            ((TextView)findViewById(R.id.TF_pp_val)).setText("$10");
-            ((TextView)findViewById(R.id.total_pp_val)).setText("$100");
-            ((TextView)findViewById(R.id.total_price_val)).setText("$" + Integer.toString(100 * total_persons));
+            ((TextView) findViewById(R.id.price_pp_val)).setText("$90");
+            ((TextView) findViewById(R.id.TF_pp_val)).setText("$10");
+            ((TextView) findViewById(R.id.total_pp_val)).setText("$100");
+            ((TextView) findViewById(R.id.total_price_val)).setText("$" + Integer.toString(100 * total_persons));
 
             if (total_persons == 1) {
-                ((TextView)findViewById(R.id.total_price)).setText("TOTAL (1 PASSENGER)");
-            }
-            else {
-                ((TextView)findViewById(R.id.total_price)).setText("TOTAL (" + Integer.toString(total_persons) + " PASSENGERS)");
+                ((TextView) findViewById(R.id.total_price)).setText("TOTAL (1 PASSENGER)");
+            } else {
+                ((TextView) findViewById(R.id.total_price)).setText("TOTAL (" + Integer.toString(total_persons) + " PASSENGERS)");
 
             }
 
@@ -81,12 +80,12 @@ public class TripSummary extends AppCompatActivity {
     }
 
 
-    private void initializeAdapter(){
+    private void initializeAdapter() {
         mAdapter = new BusAdapter(this, buses, true);
         listView.setAdapter(mAdapter);
     }
 
-    private class  HandleCheckOutClick implements View.OnClickListener {
+    private class HandleCheckOutClick implements View.OnClickListener {
         public void onClick(View arg0) {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {

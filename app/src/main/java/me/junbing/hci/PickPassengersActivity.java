@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class PickPassengersActivity extends AppCompatActivity {
-    NumberPickerXML adultPicker, childrenPicker, infantPicker;
+    //    NumberPickerXML adultPicker, childrenPicker, infantPicker;
+    Spinner adultPicker, childPicker, infantPicker;
     int numAdults, numChildren, numInfants;
 
     public static String adultStr = "adults";
@@ -19,31 +22,45 @@ public class PickPassengersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_passengers);
+
         adultPicker = findViewById(R.id.adult_numpicker);
-        childrenPicker = findViewById(R.id.children_numpicker);
+        childPicker = findViewById(R.id.children_numpicker);
         infantPicker = findViewById(R.id.infant_numpicker);
 
-        adultPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        adultPicker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
-                numAdults = newVal;
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                numAdults = Integer.parseInt((String) parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
-        childrenPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        childPicker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
-                numChildren = newVal;
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                numChildren = Integer.parseInt((String) parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
-        infantPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        infantPicker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
-                numInfants = newVal;
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                numInfants = Integer.parseInt((String) parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
+
 
     public void OkOnClick(View v) {
         String vars = "adults, kids, infants: "

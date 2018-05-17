@@ -156,12 +156,12 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
                 passengerSelectOnClick(v);
                 break;
             case R.id.departure_textview:
-                pickDateDialog(v, Calendar.getInstance(), returnDateCalendar); // min = today
+                pickDateDialog((TextView) v, Calendar.getInstance(), returnDateCalendar); // min = today
                 break;
             case R.id.return_textview:
                 Calendar minDate = (departureDateCalendar != null) ?
                         departureDateCalendar : Calendar.getInstance();
-                pickDateDialog(v, minDate, null);
+                pickDateDialog((TextView) v, minDate, null);
                 break;
             case R.id.trip_search_button:
                 searchForTrips();
@@ -193,12 +193,15 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
 
     /**
      * Allows users to select a trip date by tapping on a calendar
+     * <p>
+     * If either minDate or maxDate are null, no minimum or maximum
+     * dates will be set for the calendar.
      *
      * @param view    view to update with the resulting date
-     * @param minDate minimum date users are allowed to select. Not nullable because it is fairly
-     * @param maxDate maximum date users are allowed to select. If null, max date will not be limited
+     * @param minDate minimum date users are allowed to select.
+     * @param maxDate maximum date users are allowed to select.
      */
-    public void pickDateDialog(final View view, @Nullable Calendar minDate, @Nullable Calendar maxDate) {
+    public void pickDateDialog(final TextView view, @Nullable Calendar minDate, @Nullable Calendar maxDate) {
         final Calendar calendarToday = Calendar.getInstance();
         int year = calendarToday.get(Calendar.YEAR);
         int month = calendarToday.get(Calendar.MONTH);

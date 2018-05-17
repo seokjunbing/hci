@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                android:layout_marginVertical="@dimen/activity_vertical_margin">
+                android:paddingVertical="@dimen/default_padding">
 
                 <LinearLayout
                     android:id="@+id/from_select"
@@ -37,7 +37,9 @@
                         android:id="@+id/from_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/from_drop_down_text" />
+                        android:text="@string/from_drop_down_text"
+                        android:textAllCaps="true"
+                        android:textStyle="bold" />
 
                     <Spinner
                         android:id="@+id/from_spinner"
@@ -59,7 +61,9 @@
                         android:id="@+id/return_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/to_drop_down_text" />
+                        android:text="@string/to_drop_down_text"
+                        android:textAllCaps="true"
+                        android:textStyle="bold" />
 
                     <Spinner
                         android:id="@+id/to_spinner"
@@ -90,7 +94,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/depart_date_text" />
+                        android:text="@string/depart_date_text"
+                        android:textAllCaps="true"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/departure_textview"
@@ -113,7 +119,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/return_date_text" />
+                        android:text="@string/return_date_text"
+                        android:textAllCaps="true"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/return_textview"
@@ -126,15 +134,34 @@
                 </LinearLayout>
             </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/passenger_count_textview"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                android:layout_marginVertical="@dimen/activity_vertical_margin"
-                android:background="@drawable/rectangle_background"
-                android:padding="@dimen/default_padding"
-                android:text="1 adult" />
+                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                android:paddingVertical="@dimen/default_padding">
+
+                <TextView
+                    android:id="@+id/passenger_prompt_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Passengers"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/passenger_count_textview"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/passenger_count_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginVertical="@dimen/activity_vertical_margin"
+                    android:background="@drawable/rectangle_background"
+                    android:padding="@dimen/default_padding"
+                    android:text="1 adult"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
 
             <Button
                 android:id="@+id/trip_search_button"
