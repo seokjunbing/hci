@@ -4,6 +4,9 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenu;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -38,6 +41,10 @@ public class MainActivity extends AppCompatActivity implements
                     tv.setText("Track your Bus");
                     selectedFragment = BlankFragment.newInstance();
                     break;
+                case R.id.navigation_my_account:
+                    tv.setText("My Account");
+                    selectedFragment = BlankFragment.newInstance();
+                    break;
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, selectedFragment);
@@ -52,13 +59,21 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationView navigationView = findViewById(R.id.navigation);
+        navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         tv = findViewById(R.id.feature_title);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, new TripTypeTabs());
         transaction.commit();
+
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigationView.getChildAt(0);
+        for (int i = 0; i < menuView.getChildCount(); i++) {
+            BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
+            itemView.setShiftingMode(false);
+            itemView.setChecked(false);
+        }
+
     }
 
     /**
