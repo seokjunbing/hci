@@ -5,6 +5,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
+    android:background="@color/colorAccent"
     >
 
     <TextView
@@ -14,6 +15,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="2dp"
         android:textSize="26sp"
+        android:textColor="#ffffff"
         android:text="You are going to ____!" />
 
     <TextView
@@ -24,6 +26,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="2dp"
         android:textSize="20sp"
+        android:textColor="#ffffff"
         android:text="Outbound trip" />
 
     <ListView
@@ -40,6 +43,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="2dp"
         android:textSize="20sp"
+        android:textColor="#ffffff"
         android:text="Return trip" />
 
     <ListView
@@ -58,8 +62,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_marginLeft="2dp"
+        android:layout_marginLeft="3dp"
         android:layout_marginTop="10dp"
+        android:textColor="#ffffff"
         android:text="Find boarding passes in My Trips"
         android:textStyle="italic" />
 

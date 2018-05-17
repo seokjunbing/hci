@@ -3,6 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
+    android:background="@color/colorAccent"
     >
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="2dp"
         android:text="Choose ____"
+        android:textColor="#ffffff"
         android:textSize="20sp" />
 
     <ListView
