@@ -198,7 +198,12 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
         intent.putExtra(childCountStr, childCount);
         intent.putExtra(infantCountStr, infantCount);
         // TODO changed for testing
-        intent.putExtra(isRoundTripStr, true);
+        if (mParam1.equals(ROUND_TRIP)) {
+            intent.putExtra(isRoundTripStr, true);
+        } else {
+            intent.putExtra(isRoundTripStr, false);
+        }
+
         startActivity(intent);
     }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HCI</string>
+    <string name="app_name">Dartmouth Coach</string>
     <string name="title_booking">Booking</string>
     <string name="title_my_trips">My Trips</string>
     <string name="title_tracking">Tracking</string>
