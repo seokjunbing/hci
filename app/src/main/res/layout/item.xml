@@ -75,45 +75,62 @@
                 app:layout_constraintStart_toEndOf="@id/time" />
         </android.support.constraint.ConstraintLayout>
 
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:checkedButton="@+id/radioButton1"
-            android:orientation="horizontal"
-            android:clickable="false"
-            android:focusable="false"
-            android:saveEnabled="false"
-            android:id="@+id/radioGroup">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/radioButton1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:checkedButton="@+id/radioButton1"
                 android:clickable="false"
                 android:focusable="false"
-                android:saveEnabled="false"
-                android:enabled="false"
-                android:visibility="gone"
-                android:background="@android:color/transparent"
-                android:textColor="@android:color/tab_indicator_text"
-                android:text="Standard Boarding" />
+                android:orientation="horizontal"
+                android:saveEnabled="false">
 
-            <RadioButton
-                android:id="@+id/radioButton2"
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:saveEnabled="false"
+                    android:text="Standard Boarding"
+                    android:textColor="@android:color/tab_indicator_text"
+                    android:visibility="gone" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:saveEnabled="false"
+                    android:text="Priority Boarding"
+                    android:textColor="@android:color/tab_indicator_text"
+                    android:visibility="gone" />
+
+            </RadioGroup>
+
+            <ImageButton
+                android:visibility="gone"
+                android:id="@+id/help_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="false"
-                android:focusable="false"
-                android:saveEnabled="false"
-                android:enabled="false"
-                android:visibility="gone"
-                android:background="@android:color/transparent"
-                android:textColor="@android:color/tab_indicator_text"
-                android:text="Priority Boarding" />
-        </RadioGroup>
+                android:background="@android:drawable/ic_menu_help" />
+
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/summary_priority"
@@ -121,6 +138,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="TextView" />
+
+
 
     </LinearLayout>
 

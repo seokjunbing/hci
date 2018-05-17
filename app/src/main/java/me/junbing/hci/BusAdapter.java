@@ -1,9 +1,12 @@
 package me.junbing.hci;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -47,6 +51,7 @@ public class BusAdapter extends ArrayAdapter<Bus> {
         TextView summaryPriority;
 
         final RadioGroup rg;
+        final ImageButton question_button;
 
         time = (TextView)listItem.findViewById(R.id.time);
         departure_loc = (TextView)listItem.findViewById(R.id.departure_loc);
@@ -54,6 +59,8 @@ public class BusAdapter extends ArrayAdapter<Bus> {
         date = (TextView)listItem.findViewById(R.id.date);
         summaryPriority = listItem.findViewById(R.id.summary_priority);
         rg = listItem.findViewById(R.id.radioGroup);
+
+        question_button = listItem.findViewById(R.id.help_button);
 
         if(isSummary) {
             rg.setVisibility(View.GONE);
@@ -101,6 +108,28 @@ public class BusAdapter extends ArrayAdapter<Bus> {
 
             }
         });
+
+        question_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(mContext, android.R.style.ThemeOverlay_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(mContext);
+                }
+                builder.setTitle("Priority Boarding")
+                        .setMessage("Jump the line and board the bus earlier for extra $10.")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                            }
+                        })
+                        .show();
+            }
+        });
+
+
 
 
 

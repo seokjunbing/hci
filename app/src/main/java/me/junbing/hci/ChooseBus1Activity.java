@@ -1,9 +1,12 @@
 package me.junbing.hci;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -59,6 +62,8 @@ public class ChooseBus1Activity extends AppCompatActivity {
 
                 Toast.makeText(ChooseBus1Activity.this, "pos: " + Long.toString(id), Toast.LENGTH_SHORT).show();
 
+                view.findViewById(R.id.help_button).setVisibility(View.VISIBLE);
+
                 System.out.println("child count: " + Integer.toString(listView.getChildCount()));
                 for (int i = 0; i < listView.getChildCount(); i++) {
                     if ((int) id != i) {
@@ -74,14 +79,9 @@ public class ChooseBus1Activity extends AppCompatActivity {
                             v.findViewById(R.id.radioButton1).setVisibility(View.GONE);
                             v.findViewById(R.id.radioButton2).setVisibility(View.GONE);
 
-//                            v.findViewById(R.id.cv).setBackgroundColor(Color.parseColor(R.color.cardview_light_background));
-//                            v.findViewById(R.id.cv).setBackgroundColor(ContextCompat.getColor(ChooseBus1Activity.this, R.color.cardview_light_background));
-//                            ((CardView)v.findViewById(R.id.cv)).setCardElevation(100);
-//                            ((CardView)v.findViewById(R.id.cv)).setCardBackgroundColor(1);
-//                            ((CardView)v.findViewById(R.id.cv)).setUseCompatPadding(true);
                             ((CardView)v.findViewById(R.id.cv)).setCardBackgroundColor(Color.parseColor("#ffffff"));
-//                            ((CardView)v.findViewById(R.id.cv)).setCardElevation(5);
 
+                            v.findViewById(R.id.help_button).setVisibility(View.GONE);
                         }
                     }
                 }
