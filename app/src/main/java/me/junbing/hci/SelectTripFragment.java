@@ -263,7 +263,6 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
                 toBusStop = busStopToStation(toLocation);
                 Log.d(debugTag, toStr + ", " + toBusStop);
                 break;
-            default:
         }
     }
 
