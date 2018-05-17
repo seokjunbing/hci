@@ -2,6 +2,8 @@ package me.junbing.hci;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -61,6 +63,7 @@ public class BusAdapter extends ArrayAdapter<Bus> {
         rg = listItem.findViewById(R.id.radioGroup);
 
         question_button = listItem.findViewById(R.id.help_button);
+//        question_button.getDrawable().mutate().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
 
         if(isSummary) {
             rg.setVisibility(View.GONE);
@@ -121,7 +124,7 @@ public class BusAdapter extends ArrayAdapter<Bus> {
                     builder = new AlertDialog.Builder(mContext);
                 }
                 builder.setTitle("Priority Boarding")
-                        .setMessage("Jump the line and board the bus earlier for extra $10.")
+                        .setMessage("Jump the line and board the bus earlier for an extra $10.")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // empty

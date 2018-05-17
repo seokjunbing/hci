@@ -122,11 +122,12 @@
             </RadioGroup>
 
             <ImageButton
-                android:visibility="gone"
                 android:id="@+id/help_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_help" />
+                android:layout_marginRight="5dp"
+                android:background="@drawable/ic_help_black_24dp_1"
+                android:visibility="gone" />
 
 
 
