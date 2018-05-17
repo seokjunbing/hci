@@ -8,6 +8,7 @@
     android:clipToPadding="true"
     android:padding="50dp"
     app:cardUseCompatPadding="true"
+
     android:focusable="false"
     android:clickable="false"
 

@@ -18,8 +18,8 @@
         android:id="@+id/choose_bus_lv"
         android:layout_width="match_parent"
         android:layout_height="485dp"
-        android:choiceMode="singleChoice"
-        android:listSelector="@android:color/darker_gray">
+        android:choiceMode="none"
+>
 
     </ListView>
 

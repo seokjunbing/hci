@@ -1,8 +1,11 @@
 package me.junbing.hci;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,6 +46,8 @@ public class ChooseBus1Activity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
                 selectPos = id;
 
+                ((CardView)view.findViewById(R.id.cv)).setCardBackgroundColor(Color.parseColor("#c4dd88"));
+
                 view.findViewById(R.id.radioButton1).setClickable(true);
                 view.findViewById(R.id.radioButton2).setClickable(true);
 
@@ -52,7 +57,6 @@ public class ChooseBus1Activity extends AppCompatActivity {
                 view.findViewById(R.id.radioButton1).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.radioButton2).setVisibility(View.VISIBLE);
 
-
                 Toast.makeText(ChooseBus1Activity.this, "pos: " + Long.toString(id), Toast.LENGTH_SHORT).show();
 
                 System.out.println("child count: " + Integer.toString(listView.getChildCount()));
@@ -60,6 +64,7 @@ public class ChooseBus1Activity extends AppCompatActivity {
                     if ((int) id != i) {
                         View v = listView.getChildAt(i);
                         if (v != null) {
+
                             v.findViewById(R.id.radioButton1).setEnabled(false);
                             v.findViewById(R.id.radioButton2).setEnabled(false);
 
@@ -69,6 +74,13 @@ public class ChooseBus1Activity extends AppCompatActivity {
                             v.findViewById(R.id.radioButton1).setVisibility(View.GONE);
                             v.findViewById(R.id.radioButton2).setVisibility(View.GONE);
 
+//                            v.findViewById(R.id.cv).setBackgroundColor(Color.parseColor(R.color.cardview_light_background));
+//                            v.findViewById(R.id.cv).setBackgroundColor(ContextCompat.getColor(ChooseBus1Activity.this, R.color.cardview_light_background));
+//                            ((CardView)v.findViewById(R.id.cv)).setCardElevation(100);
+//                            ((CardView)v.findViewById(R.id.cv)).setCardBackgroundColor(1);
+                            ((CardView)v.findViewById(R.id.cv)).setUseCompatPadding(true);
+                            ((CardView)v.findViewById(R.id.cv)).setCardBackgroundColor(Color.parseColor("#ffffff"));
+//                            ((CardView)v.findViewById(R.id.cv)).setCardElevation(5);
 
                         }
                     }
