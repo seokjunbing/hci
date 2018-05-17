@@ -99,9 +99,9 @@ public class ChooseBus1Activity extends AppCompatActivity {
             int way = extras.getInt("way");
 
             if (way == 10) {
-                ((TextView) findViewById(R.id.out_or_in)).setText("Choose your outbound trip");
+                ((TextView) findViewById(R.id.out_or_in)).setText("Choose Your Outbound Trip");
             } else {
-                ((TextView) findViewById(R.id.out_or_in)).setText("Choose your return trip");
+                ((TextView) findViewById(R.id.out_or_in)).setText("Choose Your Return Trip");
             }
 
         }

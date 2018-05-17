@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ticket price per person"
-                app:layout_constraintBottom_toTopOf="@+id/TF_pp"
+                app:layout_constraintBottom_toTopOf="@+id/priority_pp"
                 app:layout_constraintEnd_toStartOf="@+id/price_pp_val"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -62,22 +62,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$80"
-                app:layout_constraintBottom_toTopOf="@+id/TF_pp_val"
+                app:layout_constraintBottom_toTopOf="@+id/priority_pp_val"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/price_pp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:visibility="gone"
+                android:id="@+id/priority_pp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Priority boarding______"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/price_pp"
+                app:layout_constraintBottom_toTopOf="@id/TF_pp"
+                app:layout_constraintEnd_toStartOf="@id/priority_pp_val"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/priority_pp_val"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$__"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/priority_pp"
+                app:layout_constraintTop_toBottomOf="@id/price_pp_val"
+                app:layout_constraintBottom_toTopOf="@id/TF_pp_val"
+                />
+
+            <TextView
                 android:id="@+id/TF_pp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Taxes and fees per person"
+                android:text="Taxes per person"
                 app:layout_constraintBottom_toTopOf="@+id/total_pp"
                 app:layout_constraintEnd_toStartOf="@id/TF_pp_val"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/price_pp"
+                app:layout_constraintTop_toBottomOf="@+id/priority_pp"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -89,7 +113,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/TF_pp"
-                app:layout_constraintTop_toBottomOf="@id/price_pp_val" />
+                app:layout_constraintTop_toBottomOf="@id/priority_pp_val" />
 
             <TextView
                 android:id="@+id/total_pp"

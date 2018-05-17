@@ -40,18 +40,25 @@ public class TripSummary extends AppCompatActivity {
             String departureDate = extras.getString("departure_date");
             Boolean isRoundTrip = extras.getBoolean("is_round_trip");
             int busChoiceInitial = extras.getInt("bus_choice_initial");
-            Boolean busChoiceInitialPriority = extras.getBoolean("bus_choice_initial_priority");
+            Boolean busChoiceInitialPriority = extras.getBoolean("bus_choice_initial_priority", false);
+
+            Boolean busChoiceReturnPriority = extras.getBoolean("bus_choice_return_priority", false);
+
             String busStopDepart = extras.getString("bus_stop_depart");
+
 
 
             buses.add(Bus.getSelectBus(departureDate, busStopDepart, fromLoc, toLoc,
                     busChoiceInitial, busChoiceInitialPriority));
 
-            int priority_premium = 0;
+//            int priority_premium = 0;
 
-            if(busChoiceInitialPriority) {
-                priority_premium += 10;
-            }
+//            if(busChoiceInitialPriority) {
+//                priority_premium += 10;
+//                priority_item_str = priority_item_str.concat()
+//                ((TextView)findViewById(R.id.priority_pp)).setText("");
+//                ((TextView)findViewById(R.id.priority_pp)).setVisibility(View.VISIBLE);
+//            }
 
             int base_ticket_price = 90;
             int tax = 10;
@@ -60,17 +67,41 @@ public class TripSummary extends AppCompatActivity {
 
                 String returnDate = extras.getString("return_date");
                 int busChoiceReturn = extras.getInt("bus_choice_return");
-                Boolean busChoiceReturnPriority = extras.getBoolean("bus_choice_return_priority");
+//                Boolean busChoiceReturnPriority = extras.getBoolean("bus_choice_return_priority");
 
                 String busStopReturn = extras.getString("bus_stop_return");
 
                 buses.add(Bus.getSelectBus(returnDate, busStopReturn, toLoc, fromLoc,
                         busChoiceReturn, busChoiceReturnPriority));
 
-                if(busChoiceReturnPriority) {
-                    priority_premium += 10;
-                }
+//                if(busChoiceReturnPriority) {
+//                    priority_premium += 10;
+//                }
                 base_ticket_price += 50;
+            }
+
+            int priority_premium = 0;
+
+            if(busChoiceInitialPriority || busChoiceReturnPriority) {
+                String priority_item_str = "";
+
+                if(busChoiceInitialPriority && busChoiceReturnPriority) {
+                    priority_item_str = "(outbound, return)";
+                    priority_premium = 20;
+                }
+                else if(busChoiceInitialPriority) {
+                    priority_item_str = "(outbound)";
+                    priority_premium = 10;
+                }
+                else if(busChoiceReturnPriority) {
+                    priority_item_str = "(return)";
+                    priority_premium = 10;
+                }
+
+                ((TextView)findViewById(R.id.priority_pp)).setText("Priority fee per person " + priority_item_str);
+                ((TextView)findViewById(R.id.priority_pp)).setVisibility(View.VISIBLE);
+                ((TextView)findViewById(R.id.priority_pp_val)).setText("$" + Integer.toString(priority_premium));
+                ((TextView)findViewById(R.id.priority_pp_val)).setVisibility(View.VISIBLE);
             }
 
             int total_persons = 0;
@@ -78,7 +109,14 @@ public class TripSummary extends AppCompatActivity {
                     + extras.getInt("children_count")
                     + extras.getInt("infant_count");
 
-            ((TextView)findViewById(R.id.price_pp_val)).setText("$" + Integer.toString(base_ticket_price + priority_premium));
+            ((TextView)findViewById(R.id.price_pp_val)).setText("$" + Integer.toString(base_ticket_price));
+
+//            if(busChoiceInitialPriority) {
+////                ((TextView)findViewById(R.id.priority_pp)).setText("");
+////                ((TextView)findViewById(R.id.priority_pp)).setVisibility(View.VISIBLE);
+//            }
+
+
             ((TextView)findViewById(R.id.TF_pp_val)).setText("$" + Integer.toString(tax));
             ((TextView)findViewById(R.id.total_pp_val)).setText("$" + Integer.toString(base_ticket_price + priority_premium + tax));
             ((TextView)findViewById(R.id.total_price_val)).setText("$" + Integer.toString((base_ticket_price + priority_premium + tax) * total_persons));

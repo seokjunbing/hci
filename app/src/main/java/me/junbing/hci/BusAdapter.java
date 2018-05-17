@@ -124,7 +124,7 @@ public class BusAdapter extends ArrayAdapter<Bus> {
                     builder = new AlertDialog.Builder(mContext);
                 }
                 builder.setTitle("Priority Boarding")
-                        .setMessage("Jump the line and board the bus earlier for an extra $10.")
+                        .setMessage("Jump the line and board the bus earlier for an extra $10 per person per way.")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // empty
