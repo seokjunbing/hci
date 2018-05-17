@@ -62,14 +62,6 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     private int adultCount = 1;
     private int childCount = 0;
     private int infantCount = 0;
-    private HashMap<String, Integer> passengerCountMap = new HashMap<String, Integer>() {
-        {
-            put("adult", adultCount);
-            put("child", childCount);
-            put("infant", infantCount);
-        }
-    };
-    //    int[] passengerCountArr = {adultCount, childCount, infantCount};
     String[] passengerLabelArr = {"adult", "child", "infant"};
 
     // Interface elements
@@ -271,7 +263,6 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
                 toBusStop = busStopToStation(toLocation);
                 Log.d(debugTag, toStr + ", " + toBusStop);
                 break;
-            default:
         }
     }
 
@@ -308,9 +299,9 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
             case "new london":
                 return "NH Park & Ride (Exit 12, I-89)";
             case "logan airport":
-                return "Terminals A, B1, B2, C, E";
+                return "Logan Airport";
             case "south station":
-                return "700 Atlantic Ave";
+                return "South Station";
             case "new york city":
                 return "150 East 42nd Street";
             default:
@@ -321,6 +312,9 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     // START OF COPYPASTE
     public void passengerSelectOnClick(View v) {
         Intent intent = new Intent(getContext(), PickPassengersActivity.class);
+        intent.putExtra(adultCountStr, adultCount);
+        intent.putExtra(childCountStr, childCount);
+        intent.putExtra(infantCountStr, infantCount);
         startActivityForResult(intent, getPassengersCode);
     }
 

@@ -7,13 +7,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PickPassengersActivity extends AppCompatActivity {
-    //    NumberPickerXML adultPicker, childrenPicker, infantPicker;
     Spinner adultPicker, childPicker, infantPicker;
     int numAdults, numChildren, numInfants;
 
+    TextView alertNoPassengersTextView;
     public static String adultStr = "adults";
     public static String childStr = "children";
     public static String infantStr = "infants";
@@ -26,6 +27,17 @@ public class PickPassengersActivity extends AppCompatActivity {
         adultPicker = findViewById(R.id.adult_numpicker);
         childPicker = findViewById(R.id.children_numpicker);
         infantPicker = findViewById(R.id.infant_numpicker);
+        alertNoPassengersTextView = findViewById(R.id.alert_no_passengers);
+
+        // Set default values for number of passengers based on what the passengers
+        // had previously chosen
+        Bundle extras = getIntent().getExtras();
+        numAdults = extras.getInt(SelectTripFragment.adultCountStr, 1);
+        numChildren = extras.getInt(SelectTripFragment.childCountStr, 0);
+        numInfants = extras.getInt(SelectTripFragment.infantCountStr, 0);
+        adultPicker.setSelection(numAdults);
+        childPicker.setSelection(numChildren);
+        infantPicker.setSelection(numInfants);
 
         adultPicker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -63,15 +75,15 @@ public class PickPassengersActivity extends AppCompatActivity {
 
 
     public void OkOnClick(View v) {
-        String vars = "adults, kids, infants: "
-                + numAdults + ", " + numChildren + ", " + numInfants;
-        Toast.makeText(getApplicationContext(), vars, Toast.LENGTH_LONG).show();
-
-        Intent data = new Intent();
-        data.putExtra(adultStr, numAdults);
-        data.putExtra(childStr, numChildren);
-        data.putExtra(infantStr, numInfants);
-        setResult(RESULT_OK, data);
-        finish();
+        if (numAdults == 0 && numChildren == 0 && numInfants == 0) {
+            alertNoPassengersTextView.setVisibility(View.VISIBLE);
+        } else {
+            Intent returnData = new Intent();
+            returnData.putExtra(adultStr, numAdults);
+            returnData.putExtra(childStr, numChildren);
+            returnData.putExtra(infantStr, numInfants);
+            setResult(RESULT_OK, returnData);
+            finish();
+        }
     }
 }
