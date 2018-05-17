@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FixturesTabs extends Fragment {
+public class TripTypeTabs extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
