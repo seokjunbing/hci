@@ -15,4 +15,8 @@
         android:id="@+id/navigation_my_trips"
         android:icon="@drawable/ic_card_travel_black_24dp"
         android:title="@string/title_my_trips" />
+    <item
+        android:id="@+id/navigation_my_account"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="@string/title_my_account"></item>
 </menu>
