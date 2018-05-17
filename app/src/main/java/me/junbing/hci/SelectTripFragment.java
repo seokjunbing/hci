@@ -20,8 +20,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
@@ -61,6 +62,15 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     private int adultCount = 1;
     private int childCount = 0;
     private int infantCount = 0;
+    private HashMap<String, Integer> passengerCountMap = new HashMap<String, Integer>() {
+        {
+            put("adult", adultCount);
+            put("child", childCount);
+            put("infant", infantCount);
+        }
+    };
+    //    int[] passengerCountArr = {adultCount, childCount, infantCount};
+    String[] passengerLabelArr = {"adult", "child", "infant"};
 
     // Interface elements
     private TextView passengerSelectTextView;
@@ -146,10 +156,12 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
                 passengerSelectOnClick(v);
                 break;
             case R.id.departure_textview:
-                pickDateDialog(v, Calendar.getInstance());
+                pickDateDialog((TextView) v, Calendar.getInstance(), returnDateCalendar); // min = today
                 break;
             case R.id.return_textview:
-                pickDateDialog(v, departureDateCalendar);
+                Calendar minDate = (departureDateCalendar != null) ?
+                        departureDateCalendar : Calendar.getInstance();
+                pickDateDialog((TextView) v, minDate, null);
                 break;
             case R.id.trip_search_button:
                 searchForTrips();
@@ -167,9 +179,9 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
         intent.putExtra(fromLocStr, fromStr);
         intent.putExtra(toLocStr, toStr);
         intent.putExtra(busStopDepartureStr, fromBusStop);
+        intent.putExtra(busStopReturnStr, toBusStop);
         intent.putExtra(wayStr, 10);
 
-        intent.putExtra(busStopReturnStr, busStopReturnStr);
         intent.putExtra(SelectTripFragment.departureDateStr, departureDateStr);
         intent.putExtra(SelectTripFragment.returnDateStr, returnDateStr);
         intent.putExtra(adultCountStr, adultCount);
@@ -180,8 +192,17 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
         startActivity(intent);
     }
 
-    // Allows users to select a trip date by tapping on a calendar
-    public void pickDateDialog(final View v, Calendar minDate) {
+    /**
+     * Allows users to select a trip date by tapping on a calendar
+     * <p>
+     * If either minDate or maxDate are null, no minimum or maximum
+     * dates will be set for the calendar.
+     *
+     * @param view    view to update with the resulting date
+     * @param minDate minimum date users are allowed to select.
+     * @param maxDate maximum date users are allowed to select.
+     */
+    public void pickDateDialog(final TextView view, @Nullable Calendar minDate, @Nullable Calendar maxDate) {
         final Calendar calendarToday = Calendar.getInstance();
         int year = calendarToday.get(Calendar.YEAR);
         int month = calendarToday.get(Calendar.MONTH);
@@ -195,26 +216,29 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
                 // Update the text shown to the user and save the dates
                 Calendar chosenDateCalendar = Calendar.getInstance();
                 chosenDateCalendar.set(year, month, day);
-                ((TextView) v).setText(new SimpleDateFormat(
+                ((TextView) view).setText(new SimpleDateFormat(
                         dateFormat, Locale.getDefault()).format(chosenDateCalendar.getTime()
                 ));
 
-                if (v.getId() == R.id.departure_textview) {
+                if (view.getId() == R.id.departure_textview) {
                     departureDateCalendar = chosenDateCalendar;
-                } else if (v.getId() == R.id.return_textview) {
+                } else if (view.getId() == R.id.return_textview) {
                     returnDateCalendar = chosenDateCalendar;
                 }
             }
         }, year, month, day);
-        // earliest trip date -> today, regardless of whether this is the departure or return calendar
-        datePickerDialog.getDatePicker().setMinDate(minDate.getTimeInMillis());
-        // earliest trip for return trip is after the departure trip
-        if (v.getId() == R.id.return_textview && departureDateCalendar != null) {
+
+        // Handle limiting the range of the departure or return trips after one
+        // of the fields has been set
+        if (minDate != null) {
             datePickerDialog.getDatePicker().setMinDate(minDate.getTimeInMillis());
+        }
+        if (maxDate != null) {
+            datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
         }
 
         // Set the currently selected date in the calendar (if user selected it previously)
-        if (v.getId() == R.id.departure_textview && departureDateCalendar != null) {
+        if (view.getId() == R.id.departure_textview && departureDateCalendar != null) {
             datePickerDialog.updateDate(
                     departureDateCalendar.get(Calendar.YEAR),
                     departureDateCalendar.get(Calendar.MONTH),
@@ -222,14 +246,13 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
             );
         }
 
-        if (v.getId() == R.id.return_textview && returnDateCalendar != null) {
+        if (view.getId() == R.id.return_textview && returnDateCalendar != null) {
             datePickerDialog.updateDate(
                     returnDateCalendar.get(Calendar.YEAR),
                     returnDateCalendar.get(Calendar.MONTH),
                     returnDateCalendar.get(Calendar.DAY_OF_MONTH)
             );
         }
-
         datePickerDialog.show();
     }
 
@@ -297,7 +320,7 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
 
     // START OF COPYPASTE
     public void passengerSelectOnClick(View v) {
-        Intent intent = new Intent(getContext(), Main2Activity.class);
+        Intent intent = new Intent(getContext(), PickPassengersActivity.class);
         startActivityForResult(intent, getPassengersCode);
     }
 
@@ -305,16 +328,24 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (getPassengersCode == requestCode) {
             if (resultCode == RESULT_OK) {
-                adultCount = data.getIntExtra(Main2Activity.adultStr, 1);
-                childCount = data.getIntExtra(Main2Activity.childStr, 0);
-                infantCount = data.getIntExtra(Main2Activity.infantStr, 0);
-                passengerSelectTextView.setText(
-                        String.format("%s, %s, %s",
-                                formatPassengerCount("adult", adultCount),
-                                formatPassengerCount("child", childCount),
-                                formatPassengerCount("infant", infantCount)
-                        )
-                );
+
+                adultCount = data.getIntExtra(PickPassengersActivity.adultStr, 1);
+                childCount = data.getIntExtra(PickPassengersActivity.childStr, 0);
+                infantCount = data.getIntExtra(PickPassengersActivity.infantStr, 0);
+                // array so that we can loop over all the passenger strings and have
+                // a dynamic number of passenger strings represented easily
+                int[] passengerCountArr = {adultCount, childCount, infantCount};
+
+                // format all the passenger strings
+                ArrayList<String> passengerStringArr = new ArrayList<>(3);
+                for (int i = 0; i < passengerCountArr.length; i++) {
+                    if (passengerCountArr[i] > 0) {
+                        passengerStringArr.add(
+                                formatPassengerCount(passengerLabelArr[i], passengerCountArr[i])
+                        );
+                    }
+                }
+                passengerSelectTextView.setText(String.join(", ", passengerStringArr));
             }
         }
     }

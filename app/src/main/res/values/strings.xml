@@ -14,6 +14,12 @@
         <item>South Station</item>
         <item>New York City</item>
     </string-array>
+    <string-array name="passengers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
     <!-- Trip selection form strings -->
     <string name="from_drop_down_text">From</string>
     <string name="to_drop_down_text">To</string>

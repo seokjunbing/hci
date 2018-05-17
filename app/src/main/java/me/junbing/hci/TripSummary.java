@@ -32,7 +32,7 @@ public class TripSummary extends AppCompatActivity {
     }
 
 
-    private void initializeData(){
+    private void initializeData() {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String fromLoc = extras.getString("from");
@@ -44,7 +44,7 @@ public class TripSummary extends AppCompatActivity {
             String busStopDepart = extras.getString("bus_stop_depart");
 
 
-            buses.add(Bus.getSelectBus(departureDate, busStopDepart, fromLoc,toLoc,
+            buses.add(Bus.getSelectBus(departureDate, busStopDepart, fromLoc, toLoc,
                     busChoiceInitial, busChoiceInitialPriority));
 
             int priority_premium = 0;

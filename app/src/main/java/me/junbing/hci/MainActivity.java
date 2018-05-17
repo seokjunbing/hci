@@ -31,8 +31,7 @@ public class MainActivity extends AppCompatActivity
         MonthFixturesFragment.OnFragmentInteractionListener,
         SelectTripFragment.OnFragmentInteractionListener,
         WeekFixturesFragment.OnFragmentInteractionListener,
-        AllFixturesFragment.OnFragmentInteractionListener,
-        MyTeamsFixturesFragment.OnFragmentInteractionListener {
+        AllFixturesFragment.OnFragmentInteractionListener {
 
     TextView departureDatePicker, returnDatePicker;
     TextView passengerCountTextView;
