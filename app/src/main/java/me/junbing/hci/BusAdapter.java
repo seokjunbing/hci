@@ -59,10 +59,10 @@ public class BusAdapter extends ArrayAdapter<Bus> {
             rg.setVisibility(View.GONE);
 
             if(BusList.get(position).priority) {
-                summaryPriority.setText("Priority");
+                summaryPriority.setText("Priority Boarding");
             }
             else {
-                summaryPriority.setText("Standard");
+                summaryPriority.setText("Standard Boarding");
             }
         }
         else {

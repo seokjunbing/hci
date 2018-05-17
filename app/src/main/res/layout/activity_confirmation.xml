@@ -11,12 +11,19 @@
         android:id="@+id/confirmation_greeting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="2dp"
+        android:textSize="26sp"
         android:text="You are going to ____!" />
 
     <TextView
         android:id="@+id/outbound_trip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="2dp"
+        android:textSize="20sp"
         android:text="Outbound trip" />
 
     <ListView
@@ -29,6 +36,10 @@
         android:id="@+id/return_trip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="2dp"
+        android:textSize="20sp"
         android:text="Return trip" />
 
     <ListView
@@ -37,18 +48,27 @@
         android:layout_height="100dp">
     </ListView>
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="135dp" />
+
     <TextView
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Find boarding passes in your upcoming trips" />
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="10dp"
+        android:text="Find boarding passes in My Trips"
+        android:textStyle="italic" />
 
     <Button
         android:id="@+id/upcoming_trips"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:text="Upcoming trips" />
+        android:text="My Trips" />
 
 
 </LinearLayout>

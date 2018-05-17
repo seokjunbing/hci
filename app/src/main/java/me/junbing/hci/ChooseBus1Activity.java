@@ -46,6 +46,13 @@ public class ChooseBus1Activity extends AppCompatActivity {
                 view.findViewById(R.id.radioButton1).setClickable(true);
                 view.findViewById(R.id.radioButton2).setClickable(true);
 
+                view.findViewById(R.id.radioButton1).setEnabled(true);
+                view.findViewById(R.id.radioButton2).setEnabled(true);
+
+                view.findViewById(R.id.radioButton1).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.radioButton2).setVisibility(View.VISIBLE);
+
+
                 Toast.makeText(ChooseBus1Activity.this, "pos: " + Long.toString(id), Toast.LENGTH_SHORT).show();
 
                 System.out.println("child count: " + Integer.toString(listView.getChildCount()));
@@ -53,8 +60,16 @@ public class ChooseBus1Activity extends AppCompatActivity {
                     if ((int) id != i) {
                         View v = listView.getChildAt(i);
                         if (v != null) {
+                            v.findViewById(R.id.radioButton1).setEnabled(false);
+                            v.findViewById(R.id.radioButton2).setEnabled(false);
+
                             v.findViewById(R.id.radioButton1).setClickable(false);
                             v.findViewById(R.id.radioButton2).setClickable(false);
+
+                            v.findViewById(R.id.radioButton1).setVisibility(View.GONE);
+                            v.findViewById(R.id.radioButton2).setVisibility(View.GONE);
+
+
                         }
                     }
                 }
@@ -147,25 +162,6 @@ public class ChooseBus1Activity extends AppCompatActivity {
 
     private void initializeData() {
 
-
-//        public static final String fromLoc = "from";
-//        public static final String toLoc = "to";
-//        public static final String departureDate = "departure_date";
-//        public static final String returnDate = "return_date";
-//        public static final String adultCount = "adult_count";
-//        public static final String childrenCount = "children_count";
-//        public static final String infantCount = "infant_count";
-//        public static final String isRoundTrip = "is_round_trip";
-
-//        intent.putExtra("from", "New York");
-//        intent.putExtra("to", "Hanover");
-//        intent.putExtra("departure_date", "06/31/18");
-//        intent.putExtra("return_date", "07/25/18");
-//        intent.putExtra("adult_count", 2);
-//        intent.putExtra("children_count", 2);
-//        intent.putExtra("infant_count", 0);
-//        intent.putExtra("is_round_trip", false);
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String fromLoc = extras.getString("from");
@@ -174,8 +170,6 @@ public class ChooseBus1Activity extends AppCompatActivity {
 
             int way = extras.getInt("way");
             Log.d("LOL", "" + way);
-
-            // add function to get departure location ie logan for boston, hop for hanover
 
             // initial trip of a round trip / one way trip
             if (way == 10) {
