@@ -14,15 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
@@ -55,8 +56,7 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
 
     public static final String dateFormat = "MM/dd/yyyy";
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_TRIP_TYPE = "trip_type";
     public static String debugTag = "TRIP_SELECT";
 
     private int adultCount = 1;
@@ -67,7 +67,9 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     // Interface elements
     private TextView passengerSelectTextView;
     private TextView departureDateTextView, returnDateTextView;
+    private LinearLayout departureSelectLayout, returnSelectLayout;
     private Button searchButton;
+    Spinner fromSpinner, toSpinner;
 
     public int getPassengersCode = 1;
     SharedPreferences sp;
@@ -77,7 +79,9 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     private Calendar departureDateCalendar, returnDateCalendar;
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
+
+    public static final String ONE_WAY = "one-way";
+    public static final String ROUND_TRIP = "round-trip";
 
     private OnFragmentInteractionListener mListener;
 
@@ -89,16 +93,14 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param param1 Parameter 1
      * @return A new instance of fragment SelectTripFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SelectTripFragment newInstance(String param1, String param2) {
+    public static SelectTripFragment newInstance(String param1) {
         SelectTripFragment fragment = new SelectTripFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_TRIP_TYPE, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -107,8 +109,7 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString(ARG_TRIP_TYPE);
         }
         sp = getActivity().getPreferences(Context.MODE_PRIVATE);
     }
@@ -121,12 +122,25 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
 
         departureDateTextView = view.findViewById(R.id.departure_textview);
         departureDateTextView.setOnClickListener(this);
+
         returnDateTextView = view.findViewById(R.id.return_textview);
         returnDateTextView.setOnClickListener(this);
 
-        Spinner fromSpinner = view.findViewById(R.id.from_spinner);
-        Spinner toSpinner = view.findViewById(R.id.to_spinner);
+
+        departureSelectLayout = view.findViewById(R.id.departure_select_mini_layout);
+        returnSelectLayout = view.findViewById(R.id.arrival_select_mini_layout);
+
+        fromSpinner = view.findViewById(R.id.from_spinner);
+        toSpinner = view.findViewById(R.id.to_spinner);
         toSpinner.setSelection(3); // 3 -> Boston Logan
+
+        if (mParam1 != null && mParam1.equals(ONE_WAY)) {
+            // get the departure date form to fill the horizontal space
+            departureSelectLayout.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            departureDateTextView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            returnSelectLayout.setVisibility(View.GONE);
+        }
+
         toSpinner.setOnItemSelectedListener(this);
         fromSpinner.setOnItemSelectedListener(this);
 
@@ -138,7 +152,7 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_todays_fixtures, container, false);
+        return inflater.inflate(R.layout.fragment_select_trip, container, false);
     }
 
     @Override
@@ -162,20 +176,24 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     }
 
     private void searchForTrips() {
+        Intent intent = new Intent(getContext(), ChooseBus1Activity.class);
+
         String departureDateStr = new SimpleDateFormat(
                 dateFormat, Locale.getDefault()).format(departureDateCalendar.getTime());
-        String returnDateStr = new SimpleDateFormat(
-                dateFormat, Locale.getDefault()).format(returnDateCalendar.getTime());
+        intent.putExtra(SelectTripFragment.departureDateStr, departureDateStr);
+        // this field is included in the intent only if the trip is a round-trip one
+        if (mParam1.equals(ROUND_TRIP)) {
+            String returnDateStr = new SimpleDateFormat(
+                    dateFormat, Locale.getDefault()).format(returnDateCalendar.getTime());
+            intent.putExtra(SelectTripFragment.returnDateStr, returnDateStr);
+        }
 
-        Intent intent = new Intent(getContext(), ChooseBus1Activity.class);
         intent.putExtra(fromLocStr, fromStr);
         intent.putExtra(toLocStr, toStr);
         intent.putExtra(busStopDepartureStr, fromBusStop);
         intent.putExtra(busStopReturnStr, toBusStop);
         intent.putExtra(wayStr, 10);
 
-        intent.putExtra(SelectTripFragment.departureDateStr, departureDateStr);
-        intent.putExtra(SelectTripFragment.returnDateStr, returnDateStr);
         intent.putExtra(adultCountStr, adultCount);
         intent.putExtra(childCountStr, childCount);
         intent.putExtra(infantCountStr, infantCount);
@@ -214,8 +232,14 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
 
                 if (view.getId() == R.id.departure_textview) {
                     departureDateCalendar = chosenDateCalendar;
+                    if (mParam1.equals(ONE_WAY) || returnDateCalendar != null) {
+                        searchButton.setEnabled(true);
+                    }
                 } else if (view.getId() == R.id.return_textview) {
                     returnDateCalendar = chosenDateCalendar;
+                    if (departureDateCalendar != null) {
+                        searchButton.setEnabled(true);
+                    }
                 }
             }
         }, year, month, day);
@@ -253,6 +277,17 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
         switch (parent.getId()) {
             case R.id.from_spinner:
                 String fromLocation = (String) parent.getItemAtPosition(position);
+
+                int possibleLocationsResourceId = getAvailableDestinations(fromLocation);
+                String[] posLoc = getResources().getStringArray(possibleLocationsResourceId);
+                ArrayAdapter spinnerAdapter = new ArrayAdapter<String>(
+                        getContext(),
+                        android.R.layout.simple_spinner_item,
+                        posLoc
+                );
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                toSpinner.setAdapter(spinnerAdapter);
+
                 fromStr = busStopToCity(fromLocation);
                 fromBusStop = busStopToStation(fromLocation);
                 Log.d(debugTag, fromStr + ", " + fromBusStop);
@@ -269,6 +304,22 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         Log.d(debugTag, "Nothing selected");
+    }
+
+    @Nullable
+    private Integer getAvailableDestinations(String from) {
+        String fromLower = from.toLowerCase();
+        if (fromLower.equals("logan airport") || fromLower.equals("south station")) {
+            return R.array.bus_stops_from_boston;
+        } else if (fromLower.equals("hanover") || fromLower.equals("lebanon")) {
+            return R.array.bus_stops_from_upper_valley;
+        } else if (fromLower.equals("new london")) {
+            return R.array.bus_stops_from_new_london;
+        } else if (fromLower.equals("new york city")) {
+            return R.array.bus_stops_from_ny;
+        } else {
+            return null;
+        }
     }
 
     private String busStopToCity(String busStop) {
@@ -309,7 +360,6 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    // START OF COPYPASTE
     public void passengerSelectOnClick(View v) {
         Intent intent = new Intent(getContext(), PickPassengersActivity.class);
         intent.putExtra(adultCountStr, adultCount);

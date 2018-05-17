@@ -14,20 +14,24 @@
         <item>South Station</item>
         <item>New York City</item>
     </string-array>
-    <string-array name="bus_stops_from_nh">
+    <string-array name="bus_stops_from_upper_valley">
         <item>Logan Airport</item>
         <item>South Station</item>
         <item>New York City</item>
+    </string-array>
+    <string-array name="bus_stops_from_new_london">
+        <item>Logan Airport</item>
+        <item>South Station</item>
     </string-array>
     <string-array name="bus_stops_from_boston">
         <item>Hanover</item>
         <item>Lebanon</item>
         <item>New London</item>
     </string-array>
-    <string name="bus_stops_from_ny">
+    <string-array name="bus_stops_from_ny">
         <item>Hanover</item>
         <item>Lebanon</item>
-    </string>
+    </string-array>
     <string-array name="passengers">
         <item>0</item>
         <item>1</item>
