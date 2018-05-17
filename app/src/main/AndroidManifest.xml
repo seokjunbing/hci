@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/bus_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -25,12 +25,14 @@
         <activity
             android:name=".ChooseBus1Activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Payment"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TripSummary"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Confirmation"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Payment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TripSummary"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Confirmation"
+            android:screenOrientation="portrait" />
     </application>
-
 </manifest>
