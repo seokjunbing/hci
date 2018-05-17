@@ -82,14 +82,14 @@
                 app:layout_constraintTop_toBottomOf="@id/destination_select">
 
                 <LinearLayout
-                    android:id="@+id/depart_select"
+                    android:id="@+id/departure_select_mini_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                     android:orientation="vertical"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/arrive_select">
+                    app:layout_constraintRight_toLeftOf="@id/arrival_select_mini_layout">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -108,12 +108,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/arrive_select"
+                    android:id="@+id/arrival_select_mini_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                     android:orientation="vertical"
-                    app:layout_constraintLeft_toRightOf="@id/depart_select"
+                    app:layout_constraintLeft_toRightOf="@id/departure_select_mini_layout"
                     app:layout_constraintRight_toRightOf="parent">
 
                     <TextView
@@ -169,6 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                 android:layout_marginVertical="@dimen/activity_vertical_margin"
+                android:enabled="false"
                 android:text="Search" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
