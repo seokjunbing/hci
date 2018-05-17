@@ -63,7 +63,6 @@ public class BusAdapter extends ArrayAdapter<Bus> {
         rg = listItem.findViewById(R.id.radioGroup);
 
         question_button = listItem.findViewById(R.id.help_button);
-//        question_button.getDrawable().mutate().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
 
         if(isSummary) {
             rg.setVisibility(View.GONE);
@@ -80,8 +79,6 @@ public class BusAdapter extends ArrayAdapter<Bus> {
 
         }
 
-
-
         final Bus currentBus = BusList.get(position);
 
         time.setText(currentBus.time);
@@ -95,13 +92,9 @@ public class BusAdapter extends ArrayAdapter<Bus> {
                 switch (checkedId) {
                     case R.id.radioButton1:
                         currentBus.priority=false;
-//                        ((RadioButton)group.getChildAt(0)).setChecked(true);
-//                        ((RadioButton)group.getChildAt(1)).setChecked(false);
                         break;
                     case R.id.radioButton2:
                         currentBus.priority=true;
-//                        ((RadioButton)group.getChildAt(0)).setChecked(false);
-//                        ((RadioButton)group.getChildAt(1)).setChecked(true);
                         break;
                 }
 
@@ -133,9 +126,6 @@ public class BusAdapter extends ArrayAdapter<Bus> {
                         .show();
             }
         });
-
-
-
 
 
         return listItem;

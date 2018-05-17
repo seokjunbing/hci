@@ -60,7 +60,7 @@ public class ChooseBus1Activity extends AppCompatActivity {
                 view.findViewById(R.id.radioButton1).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.radioButton2).setVisibility(View.VISIBLE);
 
-                Toast.makeText(ChooseBus1Activity.this, "pos: " + Long.toString(id), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ChooseBus1Activity.this, "pos: " + Long.toString(id), Toast.LENGTH_SHORT).show();
 
                 view.findViewById(R.id.help_button).setVisibility(View.VISIBLE);
 
@@ -109,7 +109,7 @@ public class ChooseBus1Activity extends AppCompatActivity {
 
     private class HandleSearchClick implements View.OnClickListener {
         public void onClick(View arg0) {
-            Toast.makeText(ChooseBus1Activity.this, "pressed search", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(ChooseBus1Activity.this, "pressed search", Toast.LENGTH_SHORT).show();
             Intent intent;
 
             Bundle extras = getIntent().getExtras();

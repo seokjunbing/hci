@@ -46,19 +46,8 @@ public class TripSummary extends AppCompatActivity {
 
             String busStopDepart = extras.getString("bus_stop_depart");
 
-
-
             buses.add(Bus.getSelectBus(departureDate, busStopDepart, fromLoc, toLoc,
                     busChoiceInitial, busChoiceInitialPriority));
-
-//            int priority_premium = 0;
-
-//            if(busChoiceInitialPriority) {
-//                priority_premium += 10;
-//                priority_item_str = priority_item_str.concat()
-//                ((TextView)findViewById(R.id.priority_pp)).setText("");
-//                ((TextView)findViewById(R.id.priority_pp)).setVisibility(View.VISIBLE);
-//            }
 
             int base_ticket_price = 90;
             int tax = 10;
@@ -67,16 +56,12 @@ public class TripSummary extends AppCompatActivity {
 
                 String returnDate = extras.getString("return_date");
                 int busChoiceReturn = extras.getInt("bus_choice_return");
-//                Boolean busChoiceReturnPriority = extras.getBoolean("bus_choice_return_priority");
 
                 String busStopReturn = extras.getString("bus_stop_return");
 
                 buses.add(Bus.getSelectBus(returnDate, busStopReturn, toLoc, fromLoc,
                         busChoiceReturn, busChoiceReturnPriority));
 
-//                if(busChoiceReturnPriority) {
-//                    priority_premium += 10;
-//                }
                 base_ticket_price += 50;
             }
 
@@ -111,11 +96,6 @@ public class TripSummary extends AppCompatActivity {
 
             ((TextView)findViewById(R.id.price_pp_val)).setText("$" + Integer.toString(base_ticket_price));
 
-//            if(busChoiceInitialPriority) {
-////                ((TextView)findViewById(R.id.priority_pp)).setText("");
-////                ((TextView)findViewById(R.id.priority_pp)).setVisibility(View.VISIBLE);
-//            }
-
 
             ((TextView)findViewById(R.id.TF_pp_val)).setText("$" + Integer.toString(tax));
             ((TextView)findViewById(R.id.total_pp_val)).setText("$" + Integer.toString(base_ticket_price + priority_premium + tax));
@@ -144,7 +124,6 @@ public class TripSummary extends AppCompatActivity {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
                 Intent intent = new Intent(TripSummary.this, Payment.class);
-
 
                 intent.putExtra("from", extras.getString("from"));
                 intent.putExtra("to", extras.getString("to"));
