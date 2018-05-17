@@ -93,7 +93,8 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:saveEnabled="false"
-                android:enabled="true"
+                android:enabled="false"
+                android:visibility="gone"
                 android:background="@android:color/transparent"
                 android:textColor="@android:color/tab_indicator_text"
                 android:text="Standard Boarding" />
@@ -106,7 +107,8 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:saveEnabled="false"
-                android:enabled="true"
+                android:enabled="false"
+                android:visibility="gone"
                 android:background="@android:color/transparent"
                 android:textColor="@android:color/tab_indicator_text"
                 android:text="Priority Boarding" />

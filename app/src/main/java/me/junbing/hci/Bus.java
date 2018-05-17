@@ -10,7 +10,7 @@ public class Bus {
     Boolean priority;
     Boolean selected;
 
-    static String[] times = {"8AM - 11AM", "10AM - 1PM", "12PM - 3PM", "2PM - 5PM", "4PM - 7PM"};
+    static String[] times = {"8AM - 11AM", "10AM - 1PM", "12PM - 3PM", "2PM - 5PM", "4PM - 7PM", "6PM - 9PM"};
 
     public Bus() {
     }

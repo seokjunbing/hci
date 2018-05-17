@@ -46,6 +46,12 @@ public class ChooseBus1Activity extends AppCompatActivity {
                 view.findViewById(R.id.radioButton1).setClickable(true);
                 view.findViewById(R.id.radioButton2).setClickable(true);
 
+                view.findViewById(R.id.radioButton1).setEnabled(true);
+                view.findViewById(R.id.radioButton2).setEnabled(true);
+
+                view.findViewById(R.id.radioButton1).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.radioButton2).setVisibility(View.VISIBLE);
+
 
                 Toast.makeText(ChooseBus1Activity.this, "pos: " + Long.toString(id), Toast.LENGTH_SHORT).show();
 
@@ -54,8 +60,14 @@ public class ChooseBus1Activity extends AppCompatActivity {
                     if ((int) id != i) {
                         View v = listView.getChildAt(i);
                         if (v != null) {
+                            v.findViewById(R.id.radioButton1).setEnabled(false);
+                            v.findViewById(R.id.radioButton2).setEnabled(false);
+
                             v.findViewById(R.id.radioButton1).setClickable(false);
                             v.findViewById(R.id.radioButton2).setClickable(false);
+
+                            v.findViewById(R.id.radioButton1).setVisibility(View.GONE);
+                            v.findViewById(R.id.radioButton2).setVisibility(View.GONE);
 
 
                         }
