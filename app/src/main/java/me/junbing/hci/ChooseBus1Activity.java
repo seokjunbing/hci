@@ -46,7 +46,7 @@ public class ChooseBus1Activity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
                 selectPos = id;
 
-                ((CardView)view.findViewById(R.id.cv)).setCardBackgroundColor(Color.parseColor("#c4dd88"));
+                ((CardView)view.findViewById(R.id.cv)).setCardBackgroundColor(Color.parseColor("#e2e2e2"));
 
                 view.findViewById(R.id.radioButton1).setClickable(true);
                 view.findViewById(R.id.radioButton2).setClickable(true);
@@ -78,7 +78,7 @@ public class ChooseBus1Activity extends AppCompatActivity {
 //                            v.findViewById(R.id.cv).setBackgroundColor(ContextCompat.getColor(ChooseBus1Activity.this, R.color.cardview_light_background));
 //                            ((CardView)v.findViewById(R.id.cv)).setCardElevation(100);
 //                            ((CardView)v.findViewById(R.id.cv)).setCardBackgroundColor(1);
-                            ((CardView)v.findViewById(R.id.cv)).setUseCompatPadding(true);
+//                            ((CardView)v.findViewById(R.id.cv)).setUseCompatPadding(true);
                             ((CardView)v.findViewById(R.id.cv)).setCardBackgroundColor(Color.parseColor("#ffffff"));
 //                            ((CardView)v.findViewById(R.id.cv)).setCardElevation(5);
 
