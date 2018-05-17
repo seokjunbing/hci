@@ -109,6 +109,8 @@ public class BusAdapter extends ArrayAdapter<Bus> {
             }
         });
 
+        // referred to
+        // https://stackoverflow.com/questions/2115758/how-do-i-display-an-alert-dialog-on-android?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
         question_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +124,7 @@ public class BusAdapter extends ArrayAdapter<Bus> {
                         .setMessage("Jump the line and board the bus earlier for extra $10.")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
+                                // empty
                             }
                         })
                         .show();
