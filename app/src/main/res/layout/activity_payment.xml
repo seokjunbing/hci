@@ -80,12 +80,13 @@
                 android:text="Or pay with your credit card" />
 
             <RadioGroup
+                android:id="@+id/credit_card_rg"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:checkedButton="@+id/radioButton">
+                android:checkedButton="@+id/use_stored_card">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/use_stored_card"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -93,7 +94,7 @@
                     android:textColor="@android:color/tab_indicator_text" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/use_new_card"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -101,13 +102,23 @@
                     android:textColor="@android:color/tab_indicator_text" />
 
                 <LinearLayout
+                    android:id="@+id/spacer"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
+
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_credit_card"
+                    android:layout_width="fill_parent"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/credit_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
@@ -116,6 +127,7 @@
                         android:enabled="false"
                         android:hint="Enter credit card number"
                         android:inputType="numberDecimal"
+                        android:nextFocusForward="@+id/cvv"
                         android:singleLine="true" />
 
                     <LinearLayout
@@ -125,7 +137,9 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/editText3"
+                            android:id="@+id/cvv"
+                            android:nextFocusForward="@+id/mmyy"
+                            android:nextFocusRight="@id/mmyy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="2dp"
@@ -136,7 +150,7 @@
                             android:inputType="numberDecimal" />
 
                         <EditText
-                            android:id="@+id/editText4"
+                            android:id="@+id/mmyy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
