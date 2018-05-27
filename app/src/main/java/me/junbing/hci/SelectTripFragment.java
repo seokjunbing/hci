@@ -295,13 +295,11 @@ public class SelectTripFragment extends Fragment implements View.OnClickListener
 
                 fromStr = busStopToCity(fromLocation);
                 fromBusStop = busStopToStation(fromLocation);
-                Log.d(debugTag, fromStr + ", " + fromBusStop);
                 break;
             case R.id.to_spinner:
                 String toLocation = (String) parent.getItemAtPosition(position);
                 toStr = busStopToCity(toLocation);
                 toBusStop = busStopToStation(toLocation);
-                Log.d(debugTag, toStr + ", " + toBusStop);
                 break;
         }
     }
